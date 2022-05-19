@@ -4,4 +4,4 @@
 sticky	z-index:9999
 角标		z-index:999
 ```
-![img](https://raw.githubusercontent.com/zizikoth/Uniapp-Widget/master/preview/preview.jpg)
+<img src="https://raw.githubusercontent.com/zizikoth/Uniapp-Widget/master/preview/preview.jpg" width="200px" />
