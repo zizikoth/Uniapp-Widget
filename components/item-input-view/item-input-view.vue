@@ -231,7 +231,7 @@
 		watch: {
 			radioIndex: {
 				handler(newValue) {
-					if (newValue === "" || newValue === undefined || newValue === null) {
+					if (newValue === "" || newValue == null) {
 						this.radioSelectIndex = -1
 					} else {
 						this.radioSelectIndex = newValue
@@ -241,7 +241,11 @@
 			},
 			checkIndex: {
 				handler(newValue) {
-					this.checkSelectIndex = newValue
+					if (newValue == null || newValue.length == 0) {
+						this.checkSelectIndex = []
+					} else {
+						this.checkSelectIndex = newValue
+					}
 				},
 				immediate: true
 			}
