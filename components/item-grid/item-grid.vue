@@ -3,8 +3,13 @@
 		<view class="item-grid-item-box" v-for="(item,index) in grid" :key='index' @click="click(item)">
 			<uni-badge size="small" absolute="rightTop" type="error" :text="item.badge">
 				<view class="item-grid-item">
-					<image class="item-grid-icon" :src="item.icon" />
-					<text class="item-grid-title">{{item.name}}</text>
+					<image :src="item.icon" :style="{
+						width:iconSize+'rpx',
+						height:iconSize+'rpx'
+					}" />
+					<text class="item-grid-title" :style="{
+						fontSize:fontSize+'rpx'
+					}">{{item.name}}</text>
 				</view>
 			</uni-badge>
 		</view>
@@ -27,6 +32,14 @@
 			grid: {
 				type: Array,
 				default: () => []
+			},
+			iconSize: {
+				type: String,
+				default: '80'
+			},
+			fontSize: {
+				type: String,
+				default: '30'
 			}
 		},
 		methods: {
@@ -64,13 +77,7 @@
 		height: 100%;
 	}
 
-	.item-grid-icon {
-		width: 90rpx;
-		height: 90rpx;
-	}
-
 	.item-grid-title {
-		font-size: 30rpx;
 		color: #333;
 		margin-top: 20rpx;
 		width: 100%;
