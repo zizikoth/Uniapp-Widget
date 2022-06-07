@@ -70,7 +70,7 @@
 </template>
 
 <script>
-	import utils from '@/utils/utils.js'
+	import utils from '@/utils/Utils.js'
 	export default {
 		data() {
 			return {

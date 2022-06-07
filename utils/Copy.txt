@@ -1,0 +1,24 @@
+------------------------------ 防止重复点击 ------------------------------
+var oldTime = 0
+Vue.prototype.debounce = function(func) {
+	let newTime = new Date().getTime()
+	if (newTime - oldTime > 1000) {
+		oldTime = newTime
+		if (func) func()
+	} else {
+		oldTime = newTime
+		console.warn("拦截重复点击")
+	}
+}
+
+使用：复制到main.js 内部不可以使用this，需要外面定义let self = this，使用self代替this
+this.debounce(function(){
+	self.XXX
+	...
+})
+this.debounce(async function(){
+	self.XXX
+	...
+})
+------------------------------ 防止重复点击 ------------------------------
+
