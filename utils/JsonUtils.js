@@ -1,10 +1,9 @@
-import utils from "./Utils.js"
 module.exports = {
-	stringify: (data) => {
-		if (utils.isEmpty(data)) return ''
-		return encodeURIComponent(JSON.stringify(data).replace(/%/g, '%25'));
-	},
-	parse: (json) => {
-		return JSON.parse(decodeURIComponent(json))
-	}
+    stringify(data, encode = false) {
+        if (data == null || data === "") return ''
+        return encode ? encodeURIComponent(JSON.stringify(data)) : JSON.stringify(data)
+    },
+    parse(json, decode = false) {
+        return decode ? JSON.parse(decodeURIComponent(json)) : JSON.parse(json)
+    }
 }
