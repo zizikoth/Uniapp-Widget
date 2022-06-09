@@ -11,12 +11,13 @@ Vue.prototype.debounce = function(func) {
 	}
 }
 
-使用：复制到main.js 内部不可以使用this，需要外面定义let self = this，使用self代替this
-this.debounce(function(){
+使用：复制到main.js 内部不可以使用this
+self = this
+self.debounce(function(){
 	self.XXX
 	...
 })
-this.debounce(async function(){
+self.debounce(async function(){
 	self.XXX
 	...
 })
