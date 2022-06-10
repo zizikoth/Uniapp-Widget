@@ -11,7 +11,7 @@
             <view class="iiv-item-box" @click="onChangeText">
                 <text class="iiv-text-select" v-if="!empty(value)">{{value}}</text>
                 <text class="iiv-text-normal" v-if="empty(value)">{{hint}}</text>
-                <view class="right-arrow-black" v-if="arrow" />
+                <view :class="arrowDown?'down-arrow-black':'right-arrow-black'" v-if="arrow" />
             </view>
         </view>
 
@@ -184,6 +184,10 @@
             arrow: {
                 type: Boolean,
                 default: true
+            },
+            arrowDown: {
+                type: Boolean,
+                default: false
             },
             range: {
                 type: Array,
@@ -499,8 +503,8 @@
     .right-arrow-black {
         margin-left: 15rpx;
         color: #333333;
-        width: 15rpx;
-        height: 14rpx;
+        width: 16rpx;
+        height: 16rpx;
         position: relative;
         border-bottom: 4rpx solid #333333;
         border-right: 4rpx solid #333333;
@@ -513,7 +517,7 @@
         margin-bottom: 13rpx;
         color: #333333;
         width: 16rpx;
-        height: 14rpx;
+        height: 16rpx;
         position: relative;
         border-bottom: 4rpx solid #333333;
         border-right: 4rpx solid #333333;

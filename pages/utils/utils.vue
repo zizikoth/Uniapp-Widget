@@ -1,10 +1,11 @@
 <template>
     <view>
-        <view class="btn" @click="utils">Utils</view>
-        <view class="btn" @click="json">JsonUtils</view>
-        <view class="btn" @click="time">TimeUtils</view>
-        <view class="btn" @click="math">MathUtils</view>
-        <view class="btn" @click="text">TextUitls</view>
+        <title-bar title="工具" />
+        <view class="button" style="margin-top: 120rpx;" @click="utils">Utils</view>
+        <view class="button" @click="json">JsonUtils</view>
+        <view class="button" @click="time">TimeUtils</view>
+        <view class="button" @click="math">MathUtils</view>
+        <view class="button" @click="text">TextUitls</view>
     </view>
 </template>
 
@@ -35,14 +36,11 @@
                 console.log(utils.isEmpty(''))
                 console.log(utils.containStr('111,222,333', '123'))
                 console.log(utils.deepClone(this.data))
-                let query = utils.buildQuery({
+                console.log(utils.buildQuery({
                     title: '标题',
                     content: '内容',
                     plan: '123abc啊吧从!@#$%^*()_+<>?:{}|[];,.'
-                })
-                uni.navigateTo({
-                    url: './test' + query
-                })
+                }))
             },
             json() {
                 console.log(jsonUtils.stringify(this.data, true))
@@ -83,21 +81,5 @@
     page {
         display: flex;
         flex-direction: column;
-    }
-
-    .btn {
-        display: flex;
-        height: 90rpx;
-        width: 92%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30rpx;
-        background-color: #999999;
-        color: #FFFFFF;
-        font-size: 30rpx;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        line-height: 90rpx;
     }
 </style>

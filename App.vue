@@ -1,49 +1,44 @@
 <script>
-	export default {}
+    export default {}
 </script>
 
 <style>
-	.down-arrow-black {
-		margin-left: 15rpx;
-		margin-bottom: 13rpx;
-		color: #333333;
-		width: 16rpx;
-		height: 14rpx;
-		position: relative;
-		border-bottom: 4rpx solid #333333;
-		border-right: 4rpx solid #333333;
-		transform: rotate(45deg);
-		border-radius: 4rpx;
-	}
-	
-	.down-arrow-white {
-		margin-left: 15rpx;
-		margin-bottom: 13rpx;
-		color: #333333;
-		width: 16rpx;
-		height: 14rpx;
-		position: relative;
-		border-bottom: 4rpx solid #FFFFFF;
-		border-right: 4rpx solid #FFFFFF;
-		transform: rotate(45deg);
-		border-radius: 4rpx;
-	}
+    .button {
+        position: relative;
+        background-color: #eee;
+        border-radius: 15rpx;
+        font-size: 30rpx;
+        color: #333;
+        width: 92%;
+        height: 90rpx;
+        line-height: 90rpx;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-bottom: 30rpx;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+    }
 
-	.right-arrow-white {
-		margin-left: 15rpx;
-		color: #333333;
-		width: 15rpx;
-		height: 14rpx;
-		position: relative;
-		border-bottom: 4rpx solid #FFFFFF;
-		border-right: 4rpx solid #FFFFFF;
-		transform: rotate(-45deg);
-		border-radius: 4rpx;
-	}
+    .button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(circle, #ccc 10%, transparent 10%);
+        transform: scale(10);
+        opacity: 0;
+        transition: all .6s;
+    }
 
-	.line {
-		background: #f5f5f5;
-		height: 1rpx;
-		width: 100%;
-	}
+    .button:active::after {
+        transform: scale(0);
+        opacity: .5;
+        transition: 0s;
+    }
 </style>

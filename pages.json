@@ -3,19 +3,18 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "通用组件"
+                "navigationBarTitleText": "首页"
             }
         }, {
             "path": "pages/utils/utils",
             "style": {
-                "navigationBarTitleText": "测试方法",
+                "navigationBarTitleText": "方法",
                 "enablePullDownRefresh": false
             }
-
         }, {
-            "path": "pages/utils/test",
+            "path": "pages/widget/widget",
             "style": {
-                "navigationBarTitleText": "测试传参",
+                "navigationBarTitleText": "组件",
                 "enablePullDownRefresh": false
             }
 
