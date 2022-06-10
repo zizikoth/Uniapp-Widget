@@ -5,7 +5,7 @@
 
             <title-bar title="通用组件" extraIcon="../../static/icon_setting.png" @extra="toast('title-bar extra()')" />
 
-            <view class="input-item">
+            <view style="margin-top: 15rpx;">
                 <item-banner height="400" :banners="banners" bannerKey="url" titleKey="title" @click="changeImages" />
             </view>
 
@@ -13,7 +13,7 @@
                 <item-grid :grid="grid.concat(grid)" @click="toast($event)" />
             </view>
 
-            <view class="item">
+            <view class="item sticky">
                 <item-tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
                 <item-tab :tabs="grid" tabKey="name" @change="toast($event)" />
                 <item-tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" @change="toast($event)" />
@@ -202,5 +202,11 @@
         width: calc(100% - 50rpx);
         padding-left: 25rpx;
         padding-right: 25rpx;
+    }
+
+    .sticky {
+        position: sticky;
+        top: 90rpx;
+        z-index: 9999;
     }
 </style>
