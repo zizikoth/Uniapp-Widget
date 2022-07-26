@@ -36,11 +36,15 @@
                 console.log(utils.isEmpty(''))
                 console.log(utils.containStr('111,222,333', '123'))
                 console.log(utils.deepClone(this.data))
-                console.log(utils.buildQuery({
+                let query = utils.buildQuery({
                     title: '标题',
                     content: '内容',
                     plan: '123abc啊吧从!@#$%^*()_+<>?:{}|[];,.'
-                }))
+                })
+                console.log()
+                uni.navigateTo({
+                    url: '../widget/widget' + query
+                })
             },
             json() {
                 console.log(jsonUtils.stringify(this.data, true))

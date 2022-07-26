@@ -40,12 +40,12 @@ const deepClone = function(obj) {
     return o;
 }
 
-const buildQuery = function(params) {
+const buildQuery = function(params, encode = true) {
     let temp = ""
     for (key in params) {
         let value = params[key]
-        if (typeof(value) == 'string') value = value.replace(/%/g, '%25')
-        temp = temp === "" ? `?${key}=${value}` : `${temp}&${key}=${value}`
+        temp = temp === "" ? `?${key}=${encode?encodeURIComponent(value):value}` :
+            `${temp}&${key}=${encode?encodeURIComponent(value):value}`
     }
     return temp
 }

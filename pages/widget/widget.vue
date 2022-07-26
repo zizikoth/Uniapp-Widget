@@ -126,7 +126,8 @@
                 }]
             }
         },
-        onLoad() {
+        onLoad(options) {
+            console.log(options)
             this.images = this.banners.map(item => item.url)
             uni.showLoading({
                 title: '加载中'
