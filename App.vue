@@ -3,6 +3,18 @@
 </script>
 
 <style>
+    .page {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        background-color: #F5F5F5;
+        width: 100%;
+        min-height: calc(100vh - constant(safe-area-inset-bottom));
+        min-height: calc(100vh - env(safe-area-inset-bottom));
+        padding-bottom: constant(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
     .button {
         position: relative;
         background-color: #eee;

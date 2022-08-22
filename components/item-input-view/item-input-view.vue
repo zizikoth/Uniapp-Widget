@@ -72,7 +72,7 @@
         </view>
 
         <view v-if="type==='image'" style="margin: 20rpx;">
-            <nine-grid-view mode="add" :images="images" :height="imageHeight" @change="onChangeImage" />
+            <nine-grid-image mode="add" :images="images" :height="imageHeight" @change="onChangeImage" />
         </view>
 
     </view>

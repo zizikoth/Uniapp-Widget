@@ -1,10 +1,12 @@
 <template>
-    <swiper class="banner-swiper" :style="{'height':height+'rpx'}" circular autoplay :current="position"
-        @change="change" v-if="list.length>0">
-        <swiper-item v-for="(item,index) in list" :key="index">
+    <swiper class="banner-swiper" circular autoplay :current="position" @change="change" v-if="list.length>0">
+        <swiper-item style="width: 100%;height: 100%;" v-for="(item,index) in list" :key="index">
             <view class="banner-swiper-item" @click="click(item)">
                 <image class="banner-image" mode="aspectFill" :src="bannerKey?item[bannerKey]:item" />
-                <text class="banner-title" v-if="titleKey">{{item[titleKey]}}</text>
+                <text class="banner-title" v-if="titleKey">
+                    <text class="banner-source" v-if="sourceKey&&item[sourceKey]">{{item[sourceKey]}}</text>
+                    {{item[titleKey]}}
+                </text>
             </view>
         </swiper-item>
     </swiper>
@@ -14,18 +16,17 @@
     /**
      * @description 轮播图
      * 
-     * @property	{Array}		banners		轮播图列表 
+     * @property	{Array}		banner		轮播图列表 
      * @property 	{String} 	bannerKey 	图片取值 
      * @property 	{String} 	titleKey 	标题取值 
-     * @property 	{String} 	bannerKey 	图片取值 
-     * @property 	{String} 	height 		轮播图高度 
+     * @property 	{String} 	sourceKey 	来源取值 
      * 
      * @event	{Function(item)}	click 	轮播图点击
      */
     export default {
-        name: "banners",
+        name: "banner",
         props: {
-            banners: {
+            banner: {
                 type: Array,
                 default: () => []
             },
@@ -33,17 +34,17 @@
                 type: String,
                 default: ""
             },
-            titleKey: {
+            sourceKey: {
                 type: String,
                 default: ""
             },
-            height: {
+            titleKey: {
                 type: String,
-                default: '380'
+                default: ""
             }
         },
         watch: {
-            banners: {
+            banner: {
                 handler(newBanner) {
                     this.list = newBanner
                     this.position = 0
@@ -72,41 +73,57 @@
     .banner-swiper {
         display: flex;
         width: 100%;
+        height: 380rpx;
     }
 
     .banner-swiper-item {
         display: flex;
         position: relative;
-        width: calc(100% - 30rpx);
-        margin-left: 15rpx;
-        marker: 15rpx;
-        height: 100%;
+        width: calc(100% - 50rpx);
+        margin-left: 25rpx;
+        margin-right: 25rpx;
+        height: 380rpx;
     }
 
     .banner-image {
         display: flex;
         width: 100%;
-        height: 100%;
-        border-radius: 15rpx;
+        height: 380rpx;
+        border-radius: 18rpx;
+        background-color: #eeeeee;
     }
 
+
     .banner-title {
+        width: calc(100% - 50rpx);
         position: absolute;
-        left: 0rpx;
-        bottom: 0rpx;
-        width: calc(100% - 40rpx);
-        padding-left: 20rpx;
-        padding-right: 20rpx;
-        border-bottom-left-radius: 15rpx;
-        border-bottom-right-radius: 15rpx;
-        height: 70rpx;
-        line-height: 70rpx;
-        background-color: rgba(2, 2, 2, 0.6);
-        color: #FFFFFF;
-        font-size: 30rpx;
+        left: 0;
+        bottom: 0;
+        padding-left: 25rpx;
+        padding-right: 25rpx;
+        height: 60rpx;
+        line-height: 60rpx;
+        font-size: 28rpx;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-bottom-left-radius: 18rpx;
+        border-bottom-right-radius: 18rpx;
         overflow: hidden;
+        -webkit-line-clamp: 1;
         text-overflow: ellipsis;
-        white-space: nowrap;
-        align-items: center;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    .banner-source {
+        padding-left: 8rpx;
+        padding-right: 8rpx;
+        padding-top: 2rpx;
+        padding-bottom: 2rpx;
+        font-size: 24rpx;
+        color: #fff;
+        background-color: #E41A2C;
+        border-radius: 8rpx;
+        margin-right: 20rpx;
     }
 </style>
