@@ -1,5 +1,9 @@
 <script>
-    export default {}
+    export default {
+        globalData: {
+            serverUrl: ''
+        }
+    }
 </script>
 
 <style>
