@@ -44,7 +44,12 @@
         },
         methods: {
             onBack() {
-                uni.navigateBack()
+                let pages = getCurrentPages()
+                if (pages && pages.length > 1) {
+                    uni.navigateBack()
+                } else {
+                    history.go(-1)
+                }
             },
             onExtra() {
                 this.$emit('extra')
