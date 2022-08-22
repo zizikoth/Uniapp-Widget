@@ -15,8 +15,8 @@
 
             <view class="item sticky">
                 <tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
-                <tab :tabs="grid" tabKey="name" @change="toast($event)" />
-                <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" @change="toast($event)" />
+                <tab :tabs="grid" tabKey="name" />
+                <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" />
             </view>
 
             <view class="item">
@@ -188,10 +188,6 @@
         width: calc(100% - 50rpx);
         padding: 25rpx;
         background-color: #FFFFFF;
-    }
-
-    .bgf5 {
-        background-color: #f5f5f5;
     }
 
     .item {

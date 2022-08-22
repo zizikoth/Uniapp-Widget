@@ -68,10 +68,11 @@
     }
 
     .common-list-cover {
-        width: 150rpx;
+        width: 160rpx;
         height: 200rpx;
         border-radius: 15rpx;
         margin-right: 25rpx;
+        background-color: #f5f5f5;
     }
 
     .common-list-extra {
