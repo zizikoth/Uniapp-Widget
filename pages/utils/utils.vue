@@ -43,7 +43,6 @@
                     content: '内容',
                     plan: '123abc啊吧从!@#$%^*()_+<>?:{}|[];,.'
                 })
-                console.log()
                 uni.navigateTo({
                     url: '../widget/widget' + query
                 })
@@ -76,7 +75,7 @@
                 console.log(textUtils.trim(text))
                 console.log(textUtils.removeEmoji(text))
                 console.log(textUtils.isPhone('13843838438'))
-                console.log(textUtils.checkPwdLevel('ZHOU931024zhx,./'))
+                console.log(textUtils.checkPwdLevel('ZZZ123zzz,./'))
             },
             md5() {
                 console.log("md5('123456') = " + md5('123456'))

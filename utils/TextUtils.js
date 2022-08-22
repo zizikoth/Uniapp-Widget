@@ -3,8 +3,7 @@ import utils from './Utils.js'
  * 去除空格
  * type: 1-前后空格 2-前空格 3-后空格 4-所有空格
  */
-const trim = function(str, type) {
-    type = type || 1
+const trim = function(str, type = 1) {
     switch (type) {
         case 1:
             return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -30,23 +29,23 @@ const isPhone = function(phone) {
 }
 
 const checkPwdLevel = function(password) {
-    var Lv = 0;
+    var level = 0;
     if (password == null || password.length < 6) {
-        return Lv
+        return level
     }
     if (/[0-9]/.test(password)) {
-        Lv++
+        level++
     }
     if (/[a-z]/.test(password)) {
-        Lv++
+        level++
     }
     if (/[A-Z]/.test(password)) {
-        Lv++
+        level++
     }
     if (/[\.|-|_]/.test(password)) {
-        Lv++
+        level++
     }
-    return Lv;
+    return level;
 }
 
 module.exports = {

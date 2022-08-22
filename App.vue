@@ -45,12 +45,14 @@
         background-image: radial-gradient(circle, #ccc 10%, transparent 10%);
         transform: scale(10);
         opacity: 0;
-        transition: all .6s;
+        transition: all .5s;
+        border-radius: 15rpx;
     }
 
     .button:active::after {
         transform: scale(0);
         opacity: .5;
         transition: 0s;
+        border-radius: 15rpx;
     }
 </style>
