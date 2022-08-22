@@ -6,6 +6,7 @@
         <view class="button" @click="time">TimeUtils</view>
         <view class="button" @click="math">MathUtils</view>
         <view class="button" @click="text">TextUitls</view>
+        <view class="button" @click="md5">MD5</view>
     </view>
 </template>
 
@@ -15,6 +16,7 @@
     import timeUtils from '@/utils/TimeUtils.js'
     import mathUtils from '@/utils/MathUtils.js'
     import textUtils from '@/utils/TextUtils.js'
+    import md5 from '@/utils/md5.js'
     export default {
         data() {
             return {
@@ -47,16 +49,15 @@
                 })
             },
             json() {
-                console.log(jsonUtils.stringify(this.data, true))
-                console.log(jsonUtils.parse(jsonUtils.stringify(this.data, true), true))
                 console.log(jsonUtils.stringify(this.data))
                 console.log(jsonUtils.parse(jsonUtils.stringify(this.data)))
             },
             time() {
                 console.log(timeUtils.nowDate)
                 console.log(timeUtils.timestamp2String(timeUtils.nowDate.timestamp))
+                console.log(timeUtils.timestamp2StringCHN(timeUtils.nowDate.timestamp))
                 console.log(timeUtils.string2Timestamp(timeUtils.nowDate.YMDHMS))
-                console.log(timeUtils.friendlyDesc("2022-06-06 06:06:06"))
+                console.log(timeUtils.friendlyDesc("2022-01-01 00:00:00"))
             },
             math() {
                 let a = 123456.654321
@@ -76,6 +77,9 @@
                 console.log(textUtils.removeEmoji(text))
                 console.log(textUtils.isPhone('13843838438'))
                 console.log(textUtils.checkPwdLevel('ZHOU931024zhx,./'))
+            },
+            md5() {
+                console.log("md5('123456') = " + md5('123456'))
             }
         }
     }

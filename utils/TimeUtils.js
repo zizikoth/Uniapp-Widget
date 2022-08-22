@@ -65,11 +65,22 @@ function timestamp2String(timestamp) {
     let time = new Date(timestamp)
     let year = time.getFullYear()
     let month = time.getMonth() + 1
-    let day = time.getDay()
+    let day = time.getDate()
     let hour = time.getHours()
     let min = time.getMinutes()
     let sec = time.getSeconds()
     return `${year}-${formatNum(month)}-${formatNum(day)} ${formatNum(hour)}:${formatNum(min)}:${formatNum(sec)}`
+}
+
+function timestamp2StringCHN(timestamp) {
+    let time = new Date(timestamp)
+    let year = time.getFullYear()
+    let month = time.getMonth() + 1
+    let day = time.getDate()
+    let hour = time.getHours()
+    let min = time.getMinutes()
+    let sec = time.getSeconds()
+    return `${year}年${formatNum(month)}月${formatNum(day)}日 ${formatNum(hour)}时${formatNum(min)}分${formatNum(sec)}秒`
 }
 
 function friendlyDesc(date) {
@@ -96,5 +107,6 @@ module.exports = {
     nowDate: nowDate(),
     string2Timestamp,
     timestamp2String,
+    timestamp2StringCHN,
     friendlyDesc
 }
