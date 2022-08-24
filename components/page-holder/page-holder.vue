@@ -1,6 +1,6 @@
 <template>
     <view class="page-holder-box" v-if="show" :style="{
-		'top':topMargin+'rpx'
+		'top':top+'rpx'
 	}">
 
         <view class="page-holder-back" v-if="back" @click="onBack()">
@@ -17,14 +17,14 @@
     /**
      * @description 页面展位图
      * 
-     * @property {String} topMargin	上边距 
+     * @property {String} top	    上边距 
      * @property {Boolea} show		显示隐藏 
      * @property {Boolea} back		是否显示返回按钮 
      */
     export default {
         name: "page-holder",
         props: {
-            topMargin: {
+            top: {
                 type: String,
                 default: '0'
             },

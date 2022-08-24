@@ -1,12 +1,13 @@
 <template>
     <view>
         <title-bar title="工具" />
-        <view class="button" style="margin-top: 120rpx;" @click="utils">Utils</view>
+        <view class="button" style="margin-top: 30rpx;" @click="utils">Utils</view>
         <view class="button" @click="json">JsonUtils</view>
         <view class="button" @click="time">TimeUtils</view>
         <view class="button" @click="math">MathUtils</view>
         <view class="button" @click="text">TextUitls</view>
         <view class="button" @click="md5">MD5</view>
+        <view class="button" @click="event">EventBus</view>
     </view>
 </template>
 
@@ -32,6 +33,9 @@
                     tag: 111
                 }
             }
+        },
+        onUnload() {
+            uni.$off("event")
         },
         methods: {
             utils() {
@@ -79,6 +83,12 @@
             },
             md5() {
                 console.log("md5('123456') = " + md5('123456'))
+            },
+            event() {
+                uni.$on("event", data => {
+                    console.log("event 数据接收 = " + data)
+                })
+                uni.$emit("event", "123")
             }
         }
     }

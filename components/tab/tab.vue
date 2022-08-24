@@ -1,5 +1,6 @@
 <template>
     <view>
+
         <view v-if="tabs.length<=4" class="it-box-normal">
             <uni-badge class="it-tab-item-normal" type="error" size="small" :text="tab.badge" absolute="rightTop"
                 :offset="offset" v-for="(tab,index) in tabs" :key="index">
@@ -9,7 +10,8 @@
             </uni-badge>
         </view>
 
-        <scroll-view v-else scroll-x scroll-with-animation :scroll-left="scrollLeft" class="it-box-scroll">
+        <scroll-view v-if="tabs.length>4" scroll-x scroll-with-animation :scroll-left="scrollLeft"
+            class="it-box-scroll">
             <view class="it-tab-box-scroll">
                 <uni-badge class="it-tab-item-scroll" type="error" size="small" :text="tab.badge" absolute="rightTop"
                     :offset="offset" v-for="(tab,index) in tabs" :key="index">

@@ -1,80 +1,77 @@
 <template>
     <view class="page">
         <title-bar title="通用组件" extraIcon="../../static/icon_setting.png" @extra="toast('title-bar extra()')" />
-        <view class="content">
-            <page-holder topMargin="90" :show="show" />
-            <view style="margin-top: 25rpx;margin-bottom: 25rpx;">
-                <banner :banner="banners" bannerKey="url" titleKey="title" sourceKey="source" @click="changeImages" />
-            </view>
-            <view class="cell">
-                <search-bar />
-            </view>
-            <view class="item">
-                <grid :grid="grid.concat(grid)" @click="toast($event)" />
-            </view>
-
-            <view class="item sticky">
-                <tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
-                <tab :tabs="grid" tabKey="name" />
-                <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" />
-            </view>
-
-            <view class="item">
-                <item-label title="主标题" subTitle="(副标题)" extra="更多" arrow line @click="toast('item-label click()')" />
-                <item-label title="主标题" />
-            </view>
-
-            <view class="cell" style="margin-top: 15rpx;">
-                <item-icon-cell icon="../../static/logo.png" title="主标题" subTitle="副标题" :badge="1" line />
-                <item-icon-cell icon="../../static/logo.png" title="主标题" dot @click="toast('item-icon-cell click()')" />
-            </view>
-
-            <view class="cell" style="margin-top: 15rpx;">
-                <item-cell marginBottom="20" title="主标题" :content="`长度(${grid.length})`"
-                    @click="toast('item-cell click()')" />
-                <item-cell marginBottom="20" title="主标题主标题主标题" content="内容" :justify="false" />
-                <item-cell marginBottom="20" title="主标题" content="内容" extra="（额外内容）"
-                    @extraClick="toast('item-cell extraClick()')" />
-            </view>
-
-            <view class="input-item" style="margin-top: 15rpx;">
-                <item-input-view type="date" title="主标题" hint="请选择日期" />
-                <item-input-view type="text" title="主标题" must hint="请选择时间" arrowDown :value="dateTime"
-                    @change="showDTP" />
-                <date-time-picker ref="dtp" @change="bindDateTime" />
-                <item-input-view type="text" title="主标题" subTitle="最高100分" must hint="请输入数字" arrowDown :value="number"
-                    @change="showNK" />
-                <number-keyboard ref="nk" @change="bindNumber" />
-                <item-input-view type="picker" title="主标题" hint="请选择内容" :range="grid" rangeKey="name" />
-                <item-input-view type="input" title="主标题" hint="请输入内容" />
-                <item-input-view type="textarea" title="主标题" hint="请输入内容" />
-                <item-input-view type="radio" title="主标题" :range="grid" rangeKey="name" :radioIndex="0"
-                    @change="toast($event)" />
-                <item-input-view type="check" title="主标题" :range="grid" rangeKey="name" :checkIndex="[0,1]"
-                    @change="toast($event)" />
-                <item-input-view type="image" title="附件" />
-            </view>
-
-            <view class="input-item">
-                <nine-grid-image mode="show" :images="images" height="230" :maxLength="9" />
-            </view>
-
-            <view class="cell" style="margin-top: 15rpx;flex-direction: row;">
-                <avatar name="张三" size="60" fontSize="30" />
-                <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三" />
-            </view>
-
-            <view class="list" style="margin-top: 15rpx;">
-                <common-list :list="newsList" cover="cover" title="title" content="content" time="time"
-                    @click="toast($event)" />
-            </view>
-
-            <load-more :status="1" @load="toast('加载更多')" />
-            <load-more :status="2" />
-            <load-more :status="3" />
-            <load-more :status="4" empty="内容已被删除" />
-
+        <page-holder top="90" :show="show" />
+        <view style="margin-top: 25rpx;margin-bottom: 25rpx;">
+            <banner :banner="banners" bannerKey="url" titleKey="title" sourceKey="source" @click="changeImages" />
         </view>
+        <view class="cell">
+            <search-bar />
+        </view>
+        <view class="item">
+            <grid :grid="grid.concat(grid)" @click="toast($event)" />
+        </view>
+
+        <view class="item sticky">
+            <tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
+            <tab :tabs="grid" tabKey="name" />
+            <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" />
+        </view>
+
+        <view class="item">
+            <item-label title="主标题" subTitle="(副标题)" extra="更多" arrow line @click="toast('item-label click()')" />
+            <item-label title="主标题" />
+        </view>
+
+        <view class="cell" style="margin-top: 15rpx;">
+            <item-icon-cell icon="../../static/logo.png" title="主标题" subTitle="副标题" :badge="1" line />
+            <item-icon-cell icon="../../static/logo.png" title="主标题" dot @click="toast('item-icon-cell click()')" />
+        </view>
+
+        <view class="cell" style="margin-top: 15rpx;">
+            <item-cell marginBottom="20" title="主标题" :content="`长度(${grid.length})`"
+                @click="toast('item-cell click()')" />
+            <item-cell marginBottom="20" title="主标题主标题主标题" content="内容" :justify="false" />
+            <item-cell marginBottom="20" title="主标题" content="内容" extra="（额外内容）"
+                @extraClick="toast('item-cell extraClick()')" />
+        </view>
+
+        <view class="input-item" style="margin-top: 15rpx;">
+            <item-input-view type="date" title="主标题" hint="请选择日期" />
+            <item-input-view type="text" title="主标题" must hint="请选择时间" arrowDown :value="dateTime" @change="showDTP" />
+            <date-time-picker ref="dtp" @change="bindDateTime" />
+            <item-input-view type="text" title="主标题" subTitle="最高100分" must hint="请输入数字" arrowDown :value="number"
+                @change="showNK" />
+            <number-keyboard ref="nk" @change="bindNumber" />
+            <item-input-view type="picker" title="主标题" hint="请选择内容" :range="grid" rangeKey="name" />
+            <item-input-view type="input" title="主标题" hint="请输入内容" />
+            <item-input-view type="textarea" title="主标题" hint="请输入内容" />
+            <item-input-view type="radio" title="主标题" :range="grid" rangeKey="name" :radioIndex="0"
+                @change="toast($event)" />
+            <item-input-view type="check" title="主标题" :range="grid" rangeKey="name" :checkIndex="[0,1]"
+                @change="toast($event)" />
+            <item-input-view type="image" title="附件" />
+        </view>
+
+        <view class="input-item">
+            <nine-grid-image mode="show" :images="images" height="230" :maxLength="9" />
+        </view>
+
+        <view class="cell" style="margin-top: 15rpx;flex-direction: row;">
+            <avatar name="张三" size="60" fontSize="30" />
+            <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三" />
+        </view>
+
+        <view class="list" style="margin-top: 15rpx;">
+            <common-list :list="newsList" cover="cover" title="title" content="content" time="time"
+                @click="toast($event)" />
+        </view>
+
+        <load-more :status="1" @load="toast('加载更多')" />
+        <load-more :status="2" />
+        <load-more :status="3" />
+        <load-more :status="4" empty="内容已被删除" />
+
     </view>
 </template>
 
