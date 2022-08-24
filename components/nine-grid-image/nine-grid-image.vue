@@ -3,10 +3,10 @@
         <view class="nine-container" v-model="images">
             <view class="nine-image-box" :style="{height:height+'rpx'}" v-for="(item,index) in curImages" :key="index">
                 <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image" />
-                <image v-if="mode=='add' && item==''" @click="onImageAdd()"
-                    src="@/static/components/icon_picture_add.png" mode="aspectFill" class="nine-image" />
-                <image v-if="mode=='add' && item!=''" @click="onImageDelete(index)"
-                    src="@/static/components/icon_picture_delete.png" mode="aspectFill" class="nine-delete" />
+                <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add">
+                    <text class="nine-add-text">×</text>
+                </view>
+                <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete">×</text>
             </view>
         </view>
     </view>
@@ -150,14 +150,39 @@
         border-radius: 10rpx;
     }
 
+    .nine-add {
+        display: flex;
+        width: 92%;
+        height: 92%;
+        margin: auto;
+        border-radius: 10rpx;
+        background-color: #eeeeee;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nine-add-text {
+        font-size: 140rpx;
+        padding-bottom: 35rpx;
+        color: #666;
+        transform: rotate(45deg);
+    }
+
     .nine-delete {
-        width: 40rpx;
+        width: 45rpx;
         height: 40rpx;
         position: absolute;
-        border-radius: 25rpx;
-        top: 0;
-        right: 0;
+        border-top-right-radius: 10rpx;
+        border-bottom-left-radius: 10rpx;
+        top: 4%;
+        right: 4%;
         justify-content: center;
         align-items: center;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #dd524d;
+        font-weight: bold;
+        line-height: 35rpx;
+        font-size: 40rpx;
+        text-align: center;
     }
 </style>

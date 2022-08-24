@@ -41,7 +41,6 @@ function checkRepeatRequest(url, data) {
 
 function post(url, data, loading = true) {
     // 校验是否是重复请求
-    if (checkRepeatRequest(url, data)) return
 
     if (loading) {
         uni.showLoading({
@@ -51,6 +50,7 @@ function post(url, data, loading = true) {
     data = data == null ? {} : data
 
     return new Promise((resolve, reject) => {
+        if (checkRepeatRequest(url, data)) reject()
         uni.request({
             header: header(),
             timeout: 15000,

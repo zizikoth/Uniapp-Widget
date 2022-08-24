@@ -16,6 +16,12 @@
             <tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
             <tab :tabs="grid" tabKey="name" />
             <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" />
+            <view class="tab-round">
+                <tab mode="round" :tabs="['tab1','tab2','tab3']" tabKey="name" />
+            </view>
+            <view class="tab-round">
+                <tab mode="square" :tabs="['tab1','tab2','tab3']" tabKey="name" />
+            </view>
         </view>
 
         <view class="item">
@@ -206,6 +212,14 @@
         position: sticky;
         top: 90rpx;
         z-index: 999;
+    }
+
+    .tab-round {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10rpx;
+        margin-bottom: 10rpx;
     }
 
     .input-item {
