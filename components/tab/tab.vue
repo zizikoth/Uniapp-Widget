@@ -23,7 +23,7 @@
 
         <view v-if="mode=='round'|| mode=='square'" :class="mode=='round'?'it-tab-round':'it-tab-square'">
             <text :class="mode=='round'?'it-tab-round-item':'it-tab-square-item'"
-                :style="position==index?tabItemSelect:tabItemNormal" v-for="(item,index) in tabs"
+                :style="position==index?tabItemSelect:tabItemNormal" v-for="(item,index) in tabs" :key="index"
                 @click="tabClick(index)">
                 {{item}}
             </text>
