@@ -12,7 +12,7 @@
             <grid :grid="grid.concat(grid)" @click="toast($event)" />
         </view>
 
-        <view class="item sticky">
+        <view class="item">
             <tab :tabs="['tab1','tab2','tab3']" :divide="false" @change="toast($event)" />
             <tab :tabs="grid" tabKey="name" />
             <tab :tabs="grid.concat(grid)" tabKey="name" :offset="[10,10]" />
