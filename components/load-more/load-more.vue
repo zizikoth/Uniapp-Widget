@@ -57,8 +57,6 @@
     }
 
     .load-more-normal-box {
-        display: flex;
-        flex-direction: column;
         width: 100%;
         height: 90rpx;
         line-height: 90rpx;

@@ -1,6 +1,6 @@
 <template>
     <view class="page">
-        <title-bar title="通用组件" extraIcon="../../static/icon_setting.png" @extra="toast('title-bar extra()')" />
+        <title-bar title="组件" extraIcon="../../static/icon_setting.png" @extra="toast('title-bar extra()')" />
         <page-holder top="90" :show="show" />
         <view style="margin-top: 25rpx;margin-bottom: 25rpx;">
             <banner :banner="banners" bannerKey="url" titleKey="title" sourceKey="source" @click="changeImages" />
@@ -52,10 +52,12 @@
             <item-input-view type="picker" title="主标题" hint="请选择内容" :range="grid" rangeKey="name" />
             <item-input-view type="input" title="主标题" hint="请输入内容" />
             <item-input-view type="textarea" title="主标题" hint="请输入内容" />
-            <item-input-view type="radio" title="主标题" :range="grid" rangeKey="name" :radioIndex="0"
-                @change="toast($event)" />
-            <item-input-view type="check" title="主标题" :range="grid" rangeKey="name" :checkIndex="[0,1]"
-                @change="toast($event)" />
+            <item-input-view type="radio" title="主标题"
+                :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
+                :radioIndex="0" @change="toast($event)" />
+            <item-input-view type="check" title="主标题"
+                :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
+                :checkIndex="[0,1]" @change="toast($event)" />
             <item-input-view type="image" title="附件" />
         </view>
 
@@ -136,6 +138,10 @@
                 }, {
                     cover: 'https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg',
                     title: '这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题',
+                    time: '2020-09-09 19:09:09'
+                }, {
+                    cover: 'https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg',
+                    content: '这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容',
                     time: '2020-09-09 19:09:09'
                 }]
             }

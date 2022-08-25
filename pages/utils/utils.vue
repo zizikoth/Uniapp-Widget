@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view class="page" style="background-color: #ffffff;">
         <title-bar title="工具" />
         <view class="button" style="margin-top: 30rpx;" @click="utils">Utils</view>
         <view class="button" @click="json">JsonUtils</view>
@@ -47,9 +47,7 @@
                     content: '内容',
                     plan: '123abc啊吧从!@#$%^*()_+<>?:{}|[];,.'
                 })
-                uni.navigateTo({
-                    url: '../widget/widget' + query
-                })
+                console.log(query)
             },
             json() {
                 console.log(jsonUtils.stringify(this.data))

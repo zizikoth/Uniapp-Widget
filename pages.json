@@ -8,23 +8,20 @@
         }, {
             "path": "pages/utils/utils",
             "style": {
-                "navigationBarTitleText": "方法",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "工具"
             }
         }, {
             "path": "pages/widget/widget",
             "style": {
-                "navigationBarTitleText": "组件",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "组件"
             }
-
         }
     ],
     "globalStyle": {
         "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8",
+        "navigationBarTitleText": "通用组件",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF",
         "navigationStyle": "custom"
     }
 }

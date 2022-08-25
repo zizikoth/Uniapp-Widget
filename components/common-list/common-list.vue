@@ -3,10 +3,10 @@
         <view class="common-list-item" v-for="(item,index) in list" :key="index" @click="click(item)">
             <image class="common-list-cover" :src="item[cover]" fade-show mode="aspectFill" v-if="cover&&item[cover]" />
             <view class="common-list-extra">
-                <text class="common-list-title"
-                    :class="{'common-list-title2':item[content]==null}">{{item[title]}}</text>
-                <text class="common-list-content">{{item[content]}}</text>
-                <text class="common-list-time">{{item[time]}}</text>
+                <text class="common-list-title" :class="{'common-list-title2':item[content]==null||item[content]==''}"
+                    v-if="title&&item[title]">{{item[title]}}</text>
+                <text class="common-list-content" v-if="content&&item[content]">{{item[content]}}</text>
+                <text class="common-list-time" v-if="time&&item[time]">{{item[time]}}</text>
             </view>
         </view>
     </view>
@@ -70,7 +70,7 @@
     .common-list-cover {
         width: 160rpx;
         height: 200rpx;
-        border-radius: 15rpx;
+        border-radius: 10rpx;
         margin-right: 25rpx;
         background-color: #f5f5f5;
     }
@@ -85,6 +85,7 @@
     }
 
     .common-list-title {
+        line-height: 40rpx;
         width: 100%;
         font-size: 30rpx;
         color: #333333;
@@ -103,6 +104,7 @@
     .common-list-content {
         width: 100%;
         font-size: 28rpx;
+        line-height: 40rpx;
         color: #666;
         overflow: hidden;
         -webkit-line-clamp: 2;

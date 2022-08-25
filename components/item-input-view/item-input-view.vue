@@ -57,7 +57,7 @@
             <view class="ivv-radio-box">
                 <view class="ivv-radio-item-box" v-for="(item,index) in range" :key="index">
                     <text :class="radioSelectIndex===index?'ivv-radio-select':'ivv-radio-normal'"
-                        @click="onRadioClick(index)">{{item[rangeKey]}}</text>
+                        @click="onRadioClick(index)">{{rangeKey?item[rangeKey]:item}}</text>
                 </view>
             </view>
         </view>
@@ -66,7 +66,7 @@
             <view class="ivv-radio-box">
                 <view class="ivv-radio-item-box" v-for="(item,index) in range" :key="index">
                     <text :class="checkSelectIndex.indexOf(index)!=-1?'ivv-radio-select':'ivv-radio-normal'"
-                        @click="onCheckClick(index)">{{item[rangeKey]}}</text>
+                        @click="onCheckClick(index)">{{rangeKey?item[rangeKey]:item}}</text>
                 </view>
             </view>
         </view>
