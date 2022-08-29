@@ -68,7 +68,7 @@
         height: 90rpx;
         background-color: #FFFFFF;
         box-shadow: 0px 2rpx 8rpx 0px #eeeeee;
-        z-index: 9999;
+        z-index: 10000;
         align-items: center;
         justify-content: space-between;
     }

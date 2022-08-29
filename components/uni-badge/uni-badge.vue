@@ -209,7 +209,7 @@
         font-family: 'Helvetica Neue', Helvetica, sans-serif;
         font-size: $bage-size;
         /* #ifdef H5 */
-        z-index: 99;
+        z-index: 10;
         cursor: pointer;
         /* #endif */
 

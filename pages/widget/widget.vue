@@ -217,7 +217,7 @@
     .sticky {
         position: sticky;
         top: 90rpx;
-        z-index: 999;
+        z-index: 100;
     }
 
     .tab-round {

@@ -1,5 +1,5 @@
 <template>
-    <view class="nk-container">
+    <view class="nk-container" @touchmove.stop.prevent="moveHandle">
         <view v-if="visible" class="nk-mask" :class="{'nk-mask-show':visible}" @click="emptyClick()" />
         <view class="nk-box hide" :class="{'show':visible}">
             <view class="nk-item nk-round" @click="onCancel()">
@@ -66,6 +66,9 @@
             };
         },
         methods: {
+            moveHandle() {
+                return false
+            },
             emptyClick() {
                 console.log("点击背景")
             },
@@ -125,7 +128,7 @@
         transition-property: opacity;
         transition-duration: 0.3s;
         opacity: 0;
-        z-index: 99999;
+        z-index: 1000;
     }
 
     .nk-mask-show {
@@ -139,7 +142,7 @@
         position: fixed;
         left: 0rpx;
         bottom: 0rpx;
-        z-index: 99999;
+        z-index: 1000;
     }
 
     .nk-item {
