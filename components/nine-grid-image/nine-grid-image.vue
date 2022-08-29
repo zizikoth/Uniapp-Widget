@@ -147,8 +147,8 @@
     }
 
     .nine-image {
-        width: 94%;
-        height: 92%;
+        width: 96%;
+        height: 94%;
         border-radius: 10rpx;
     }
 
@@ -170,8 +170,8 @@
 
     .nine-add {
         display: flex;
-        width: 92%;
-        height: 92%;
+        width: 96%;
+        height: 94%;
         margin: auto;
         border-radius: 10rpx;
         background-color: #eeeeee;
@@ -193,20 +193,20 @@
         border-top-right-radius: 10rpx;
         border-bottom-left-radius: 10rpx;
         top: 4%;
-        right: 4%;
+        right: 2%;
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.6);
         color: #dd524d;
         font-weight: bold;
-        line-height: 35rpx;
+        line-height: 33rpx;
         font-size: 40rpx;
         text-align: center;
     }
 
     .nine-delete-left {
         top: 4%;
-        right: 6%;
+        right: 4%;
     }
 
     .nine-delete-right {
