@@ -1,5 +1,5 @@
 <template>
-    <view class="nk-container" @touchmove.stop.prevent="moveHandle">
+    <view class="nk-container" @touchmove.stop.prevent="()=>false">
         <view v-if="visible" class="nk-mask" :class="{'nk-mask-show':visible}" @click="emptyClick()" />
         <view class="nk-box hide" :class="{'show':visible}">
             <view class="nk-item nk-round" @click="onCancel()">
@@ -66,9 +66,6 @@
             };
         },
         methods: {
-            moveHandle() {
-                return false
-            },
             emptyClick() {
                 console.log("点击背景")
             },

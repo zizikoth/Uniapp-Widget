@@ -1,5 +1,5 @@
 <template>
-    <view class="dtp-container" @touchmove.stop.prevent="moveHandle">
+    <view class="dtp-container" @touchmove.stop.prevent="()=>false">
         <view v-if="visible" class="dtp-mask" :class="{'dtp-mask-show':visible}" @click="emptyClick()" />
         <view class="dtp-box hide" :class="{'show':visible}">
             <view class="dtp-item dtp-round" @click="onCancel()">
@@ -87,9 +87,6 @@
             this.initTime()
         },
         methods: {
-            moveHandle() {
-                return false
-            },
             show() {
                 this.visible = true
             },

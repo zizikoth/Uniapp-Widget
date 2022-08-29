@@ -1,12 +1,15 @@
 <template>
     <view>
         <view class="nine-container" v-model="images">
-            <view class="nine-image-box" :style="{height:height+'rpx'}" v-for="(item,index) in curImages" :key="index">
-                <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image" />
+            <view class="nine-image-box" :style="{'height':height+'rpx'}" v-for="(item,index) in curImages"
+                :key="index">
+                <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image"
+                    :class="{'margin-auto-left':index%3==0,'margin-auto-mid':index%3==1,'margin-auto-right':index%3==2}" />
                 <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add">
                     <text class="nine-add-text">×</text>
                 </view>
-                <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete">×</text>
+                <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete"
+                    :class="{'nine-delete-left':index%3==0,'nine-delete-right':index%3==2}">×</text>
             </view>
         </view>
     </view>
@@ -39,7 +42,7 @@
             },
             height: {
                 type: String,
-                default: '220'
+                default: '230'
             }
         },
         watch: {
@@ -144,10 +147,25 @@
     }
 
     .nine-image {
-        width: 92%;
+        width: 94%;
         height: 92%;
-        margin: auto;
         border-radius: 10rpx;
+    }
+
+    .margin-auto-left {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: auto;
+    }
+
+    .margin-auto-mid {
+        margin: auto;
+    }
+
+    .margin-auto-right {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
     }
 
     .nine-add {
@@ -169,7 +187,7 @@
     }
 
     .nine-delete {
-        width: 45rpx;
+        width: 40rpx;
         height: 40rpx;
         position: absolute;
         border-top-right-radius: 10rpx;
@@ -184,5 +202,15 @@
         line-height: 35rpx;
         font-size: 40rpx;
         text-align: center;
+    }
+
+    .nine-delete-left {
+        top: 4%;
+        right: 6%;
+    }
+
+    .nine-delete-right {
+        top: 4%;
+        right: 0;
     }
 </style>

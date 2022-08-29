@@ -62,7 +62,7 @@
         </view>
 
         <view class="input-item">
-            <nine-grid-image mode="show" :images="images" height="230" :maxLength="9" />
+            <nine-grid-image mode="show" :images="images" height="240" :maxLength="9" />
         </view>
 
         <view class="cell" style="margin-top: 15rpx;flex-direction: row;">
