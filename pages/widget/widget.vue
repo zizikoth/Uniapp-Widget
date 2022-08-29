@@ -62,7 +62,7 @@
         </view>
 
         <view class="input-item">
-            <nine-grid-image mode="show" :images="images" height="240" :maxLength="9" />
+            <nine-grid-image mode="show" :images="images.concat(images).concat(images)" height="240" :maxLength="9" />
         </view>
 
         <view class="cell" style="margin-top: 15rpx;flex-direction: row;">
@@ -79,6 +79,10 @@
         <load-more :status="2" />
         <load-more :status="3" />
         <load-more :status="4" empty="内容已被删除" />
+
+        <view class="cell">
+            <tree :data="treeData" select multi :selectIds="[1]" @change="onTreeChange" />
+        </view>
 
     </view>
 </template>
@@ -143,11 +147,52 @@
                     cover: 'https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg',
                     content: '这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容',
                     time: '2020-09-09 19:09:09'
+                }],
+                treeData: [{
+                    id: 1,
+                    isOpen: false,
+                    title: '第一层级-1',
+                    children: [{
+                        id: 2,
+                        isOpen: false,
+                        title: '第二层级-2-1',
+                        children: [{
+                            id: 3,
+                            isOpen: false,
+                            title: '第三层级-3-1',
+                            children: [{
+                                id: 4,
+                                isOpen: false,
+                                title: '第四层级-4-1'
+                            }]
+                        }]
+                    }, {
+                        id: 5,
+                        isOpen: false,
+                        title: '第二层级-2-2',
+                        children: [{
+                            id: 6,
+                            isOpen: false,
+                            title: '第三层级-3-1'
+                        }]
+                    }]
+                }, {
+                    id: 7,
+                    isOpen: false,
+                    title: '第一层级-2',
+                    children: [{
+                        id: 8,
+                        isOpen: false,
+                        title: '第二层级-2-1'
+                    }]
+                }, {
+                    id: 9,
+                    isOpen: false,
+                    title: '第一层级-3'
                 }]
             }
         },
         onLoad(options) {
-            console.log(options)
             this.images = this.banners.map(item => item.url)
             setTimeout(() => {
                 this.show = false
@@ -178,6 +223,11 @@
             changeImages(e) {
                 this.toast(e.url)
                 this.banners.push(this.banners[0])
+            },
+            onTreeChange(list) {
+                console.log(list)
+                let msg = list.map(item => item.title).join(',')
+                utils.toast(msg)
             }
         }
     }
