@@ -199,9 +199,9 @@
                         year: date.getFullYear() + 100,
                         month: date.getMonth() + 1,
                         day: date.getDate(),
-                        hour: 23,
-                        min: 59,
-                        date: `${date.getFullYear()+100}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} 23:59`
+                        hour: 0,
+                        min: 0,
+                        date: `${date.getFullYear()+100}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} 00:00`
                     }
                 }
                 // 判断当前时间
@@ -350,7 +350,7 @@
         height: 80rpx;
         line-height: 80rpx;
         font-size: 28rpx;
-        color: #666;
+        color: #000;
         text-align: center;
     }
 
@@ -360,7 +360,7 @@
         line-height: 90rpx;
         text-align: center;
         font-size: 30rpx;
-        color: #333333;
+        color: #000;
         border-top: solid 2rpx #eee;
         background-color: #fff;
     }

@@ -53,10 +53,10 @@
         },
         methods: {
             onItemOpen(item) {
-                uni.$emit('treeOpen', item)
+                uni.$emit('componentsTreeOpen', item)
             },
             onItemCheck(item) {
-                if (this.select) uni.$emit('treeCheck', item)
+                if (this.select) uni.$emit('componentsTreeCheck', item)
             }
         }
     }
@@ -89,6 +89,10 @@
         color: #333;
         height: 70rpx;
         line-height: 70rpx;
+        margin-right: 25rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .tree-node-open {

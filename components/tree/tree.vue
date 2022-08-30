@@ -30,12 +30,19 @@
                 default: false
             }
         },
+        data() {
+            return {
+                tree: this.data,
+                ids: [],
+                selectItems: []
+            };
+        },
         created() {
-            uni.$on('treeOpen', item => {
+            uni.$on('componentsTreeOpen', item => {
                 console.log('tree-open', item)
                 this.loopChild(this.tree, item)
             })
-            uni.$on('treeCheck', item => {
+            uni.$on('componentsTreeCheck', item => {
                 console.log('tree-check', item)
                 if (this.select) {
                     let has = this.ids.some(id => id == item.id)
@@ -58,15 +65,8 @@
             })
         },
         beforeDestroy() {
-            uni.$off('treeOpen')
-            uni.$off('treeCheck')
-        },
-        data() {
-            return {
-                tree: this.data,
-                ids: [],
-                selectItems: []
-            };
+            uni.$off('componentsTreeOpen')
+            uni.$off('componentsTreeCheck')
         },
         methods: {
             loopChild(list, target) {

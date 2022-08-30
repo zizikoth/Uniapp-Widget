@@ -43,22 +43,23 @@
         </view>
 
         <view class="input-item" style="margin-top: 15rpx;">
-            <item-input-view type="date" title="主标题" hint="请选择日期" />
-            <item-input-view type="text" title="主标题" must hint="请选择时间" arrowDown :value="dateTime" @change="showDTP" />
+            <item-input-view type="date" title="年月日选择器" hint="请选择日期" />
+            <item-input-view type="text" title="年月日时分选择器" must hint="请选择时间" arrowDown :value="dateTime"
+                @change="showDTP" />
             <date-time-picker ref="dtp" @change="bindDateTime" />
-            <item-input-view type="text" title="主标题" subTitle="最高100分" must hint="请输入数字" arrowDown :value="number"
-                @change="showNK" />
+            <item-input-view type="text" title="固定文本显示数字弹窗" subTitle="最高100分" must hint="请输入数字" arrowDown
+                :value="number" @change="showNK" />
             <number-keyboard ref="nk" @change="bindNumber" />
-            <item-input-view type="picker" title="主标题" hint="请选择内容" :range="grid" rangeKey="name" />
-            <item-input-view type="input" title="主标题" hint="请输入内容" />
-            <item-input-view type="textarea" title="主标题" hint="请输入内容" />
-            <item-input-view type="radio" title="主标题"
+            <item-input-view type="picker" title="Picker选择器" hint="请选择内容" :range="grid" rangeKey="name" />
+            <item-input-view type="input" title="单行文本输入" hint="请输入内容" />
+            <item-input-view type="textarea" title="多行文本输入" hint="请输入内容" />
+            <item-input-view type="radio" title="单选"
                 :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
                 :radioIndex="0" @change="toast($event)" />
-            <item-input-view type="check" title="主标题"
+            <item-input-view type="check" title="多选"
                 :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
                 :checkIndex="[0,1]" @change="toast($event)" />
-            <item-input-view type="image" title="附件" />
+            <item-input-view type="image" title="图片选择器" />
         </view>
 
         <view class="input-item">
@@ -71,7 +72,7 @@
         </view>
 
         <view class="list" style="margin-top: 15rpx;">
-            <common-list :list="newsList" cover="cover" title="title" content="content" time="time"
+            <common-list :list="newsList" coverKey="cover" titleKey="title" contentKey="content" timeKey="time"
                 @click="toast($event)" />
         </view>
 
@@ -151,7 +152,7 @@
                 treeData: [{
                     id: 1,
                     isOpen: false,
-                    title: '第一层级-1',
+                    title: '第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级-1',
                     children: [{
                         id: 2,
                         isOpen: false,

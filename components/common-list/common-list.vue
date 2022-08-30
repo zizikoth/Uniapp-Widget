@@ -1,12 +1,14 @@
 <template>
     <view>
         <view class="common-list-item" v-for="(item,index) in list" :key="index" @click="click(item)">
-            <image class="common-list-cover" :src="item[cover]" fade-show mode="aspectFill" v-if="cover&&item[cover]" />
+            <image class="common-list-cover" :src="item[coverKey]" fade-show mode="aspectFill"
+                v-if="coverKey&&item[coverKey]" />
             <view class="common-list-extra">
-                <text class="common-list-title" :class="{'common-list-title2':item[content]==null||item[content]==''}"
-                    v-if="title&&item[title]">{{item[title]}}</text>
-                <text class="common-list-content" v-if="content&&item[content]">{{item[content]}}</text>
-                <text class="common-list-time" v-if="time&&item[time]">{{item[time]}}</text>
+                <text class="common-list-title"
+                    :class="{'common-list-title2':item[contentKey]==null||item[contentKey]==''}"
+                    v-if="titleKey&&item[titleKey]">{{item[titleKey]}}</text>
+                <text class="common-list-content" v-if="contentKey&&item[contentKey]">{{item[contentKey]}}</text>
+                <text class="common-list-time" v-if="timeKey&&item[timeKey]">{{item[timeKey]}}</text>
             </view>
         </view>
     </view>
@@ -31,19 +33,19 @@
                 type: Array,
                 default: () => []
             },
-            cover: {
+            coverKey: {
                 type: String,
                 default: ''
             },
-            title: {
+            titleKey: {
                 type: String,
                 default: ''
             },
-            content: {
+            contentKey: {
                 type: String,
                 default: ''
             },
-            time: {
+            timeKey: {
                 type: String,
                 default: ''
             }

@@ -1,16 +1,13 @@
 <template>
-    <view>
-        <view class="nine-container" v-model="images">
-            <view class="nine-image-box" :style="{'height':height+'rpx'}" v-for="(item,index) in curImages"
-                :key="index">
-                <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image"
-                    :class="{'margin-auto-left':index%3==0,'margin-auto-mid':index%3==1,'margin-auto-right':index%3==2}" />
-                <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add">
-                    <text class="nine-add-text">×</text>
-                </view>
-                <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete"
-                    :class="{'nine-delete-left':index%3==0,'nine-delete-right':index%3==2}">×</text>
+    <view class="nine-container">
+        <view class="nine-image-box" :style="{'height':height+'rpx'}" v-for="(item,index) in curImages" :key="index">
+            <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image"
+                :class="{'margin-auto-left':index%3==0,'margin-auto-mid':index%3==1,'margin-auto-right':index%3==2}" />
+            <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add">
+                <text class="nine-add-text">×</text>
             </view>
+            <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete"
+                :class="{'nine-delete-left':index%3==0,'nine-delete-right':index%3==2}">×</text>
         </view>
     </view>
 </template>
