@@ -85,6 +85,8 @@
             <tree :data="treeData" select multi :selectIds="[1]" @change="onTreeChange" />
         </view>
 
+        <calendar :mark="mark" @change="onChangeDate" />
+
     </view>
 </template>
 
@@ -190,13 +192,27 @@
                     id: 9,
                     isOpen: false,
                     title: '第一层级-3'
-                }]
+                }],
+                mark: []
             }
         },
         onLoad(options) {
             this.images = this.banners.map(item => item.url)
             setTimeout(() => {
                 this.show = false
+                this.mark = [{
+                    date: "2022-08-01",
+                    text: '出差',
+                    dot: true,
+                    color: '#dd524d',
+                    count: 999
+                }, {
+                    date: "2022-08-24",
+                    text: '生日',
+                    dot: false,
+                    color: '#dd524d',
+                    count: 999
+                }]
             }, 1000)
         },
         methods: {
@@ -229,6 +245,9 @@
                 console.log(list)
                 let msg = list.map(item => item.title).join(',')
                 utils.toast(msg)
+            },
+            onChangeDate(date) {
+                console.log("日期切换", date)
             }
         }
     }
