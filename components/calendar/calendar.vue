@@ -221,13 +221,13 @@
 
     .calendar-month-background {
         position: absolute;
-        top: 160rpx;
+        top: 260rpx;
         left: 0;
-        font-size: 250rpx;
+        font-size: 300rpx;
         color: #EEEEEE;
         width: 100%;
-        height: 400rpx;
-        line-height: 400rpx;
+        height: 300rpx;
+        line-height: 300rpx;
         text-align: center;
         font-weight: bold;
     }
@@ -357,7 +357,7 @@
         height: 30rpx;
         min-width: 14rpx;
         line-height: 30rpx;
-        font-size: 20rpx;
+        font-size: 18rpx;
         border-radius: 30rpx;
         text-align: center;
         position: absolute;
@@ -367,7 +367,7 @@
     }
 
     .calendar-mark-text {
-        font-size: 18rpx;
+        font-size: 20rpx;
         color: #999999;
     }
 </style>
