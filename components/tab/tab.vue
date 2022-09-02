@@ -1,23 +1,23 @@
 <template>
     <view>
         <view v-if="tabs.length<=4&&mode=='normal'" class="it-box-normal">
-            <uni-badge class="it-tab-item-normal" type="error" size="small" :text="tab.badge" absolute="rightTop"
+            <badge class="it-tab-item-normal" type="error" size="small" :text="tab.badge" absolute="rightTop"
                 :offset="offset" v-for="(tab,index) in tabs" :key="index">
                 <view class="it-tab-text-normal" @click="tabClick(index)">
                     <text :style="position==index?tabSelect:tabNormal">{{tabKey?tab[tabKey]:tab}}</text>
                 </view>
-            </uni-badge>
+            </badge>
         </view>
 
         <scroll-view v-if="tabs.length>4&&mode=='normal'" scroll-x scroll-with-animation :scroll-left="scrollLeft"
             class="it-box-scroll">
             <view class="it-tab-box-scroll">
-                <uni-badge class="it-tab-item-scroll" type="error" size="small" :text="tab.badge" absolute="rightTop"
+                <badge class="it-tab-item-scroll" type="error" size="small" :text="tab.badge" absolute="rightTop"
                     :offset="offset" v-for="(tab,index) in tabs" :key="index">
                     <view class="it-tab-text-scroll" @click="tabClick(index)">
                         <text :style="position==index?tabSelect:tabNormal">{{tabKey?tab[tabKey]:tab}}</text>
                     </view>
-                </uni-badge>
+                </badge>
             </view>
         </scroll-view>
 

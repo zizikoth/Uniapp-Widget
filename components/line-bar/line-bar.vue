@@ -1,15 +1,15 @@
 <template>
     <view class="line-bar-box" :style="{
         'width':width,
-        'height':height,
-        'border-radius':height,
+        'height':`${height}rpx`,
+        'border-radius':`${height}rpx`,
         'background-color':background}">
 
         <view class="line-bar-active" :style="{
             'width':progress+'%',
             'background':active,
-            'border-radius':height,
-            'min-width':height,
+            'border-radius':`${height}rpx`,
+            'min-width':`${height}rpx`,
             'transition':anim?'width .2s linear':''}" />
 
     </view>
@@ -24,12 +24,12 @@
                 default: "100%"
             },
             height: {
-                type: String,
-                default: "20rpx"
+                type: String | Number,
+                default: "20"
             },
             background: {
                 type: String,
-                default: "#e7eaed"
+                default: "#EEEEEE"
             },
             active: {
                 type: String,
@@ -56,7 +56,6 @@
     .line-bar-box {
         display: flex;
         flex-direction: row;
-        border-radius: 20rpx;
     }
 
     .line-bar-active {

@@ -1,14 +1,10 @@
 <template>
-    <view :style="{
-        'width':size+'rpx',
-        'height':size+'rpx',
-        'border-radius':size+'rpx',
-        'border':borderSize+'rpx solid '+borderColor}">
+    <view>
 
         <image :style="{
             'width':size+'rpx',
             'height':size+'rpx',
-            'border-radius':size+'rpx',
+            'border-radius':`${circle?size:radius}rpx`
         }" :src="avatar" mode="aspectFill" v-if="avatar!=null&&avatar!=''" />
 
         <text :style="{
@@ -16,7 +12,7 @@
             'width': size+'rpx',
             'height': size+'rpx',
             'line-height':size+'rpx',
-            'border-radius':size+'rpx',
+            'border-radius':`${circle?size:radius}rpx`,
             'background-color': color,
             'align-items': 'center',
             'justify-content': 'center',
@@ -34,24 +30,16 @@
                 default: "#0076F6"
             },
             size: {
-                type: String,
+                type: Number | String,
                 default: '120'
             },
-            fontColor: {
-                type: String,
-                default: "#FFFFFF"
+            circle: {
+                type: Boolean,
+                default: false
             },
-            fontSize: {
-                type: String,
-                default: "40"
-            },
-            borderColor: {
-                type: String,
-                default: "#FFFFFF"
-            },
-            borderSize: {
-                type: String,
-                default: '0'
+            radius: {
+                type: Number | String,
+                default: '10'
             },
             avatar: {
                 type: String,
@@ -60,7 +48,15 @@
             name: {
                 type: String,
                 default: ""
-            }
+            },
+            fontColor: {
+                type: String,
+                default: "#FFFFFF"
+            },
+            fontSize: {
+                type: Number | String,
+                default: "40"
+            },
         },
     }
 </script>

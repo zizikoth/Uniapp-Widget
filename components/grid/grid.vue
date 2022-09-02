@@ -2,7 +2,7 @@
     <view class="item-grid-box">
         <view class="item-grid-item-box" :style="{'width':(100/column)+'%'}" v-for="(item,index) in grid" :key='index'
             @click="click(item)">
-            <uni-badge size="small" absolute="rightTop" type="error" :text="item.badge">
+            <badge size="small" absolute="rightTop" type="error" :text="item.badge">
                 <view class="item-grid-item">
                     <image :src="item.icon" :style="{
 						width:iconSize+'rpx',
@@ -12,7 +12,7 @@
 						fontSize:fontSize+'rpx'
 					}">{{item.name}}</text>
                 </view>
-            </uni-badge>
+            </badge>
         </view>
     </view>
 </template>
@@ -20,7 +20,6 @@
 <script>
     /**
      * @description 模块宫格控件
-     * 需要提前导入uni-badge https://ext.dcloud.net.cn/plugin?id=21
      * 
      * @property	{Array}		grid	宫格列表		
      * [{icon:'../../static/icon_module.png',name:'模块名称',badge:99}]

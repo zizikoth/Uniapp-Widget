@@ -68,7 +68,9 @@
 
         <view class="cell" style="margin-top: 15rpx;flex-direction: row;">
             <avatar name="张三" size="60" fontSize="30" />
-            <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三" />
+            <avatar name="张三" size="60" fontSize="30" circle />
+            <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三"
+                radius="30" />
         </view>
 
         <view class="list" style="margin-top: 15rpx;">
@@ -88,10 +90,20 @@
         <calendar :mark="mark" @change="onChangeDate" />
 
         <view class="cell">
-            <line-bar anim :progress="progress" />
+            <line-bar :progress="progress" />
             <view style="height: 20rpx;" />
-            <line-bar anim :progress="progress" active="linear-gradient(90deg, #0f0,#0ff)" />
+            <view style="display: flex; flex-direction: row;">
+                <view style="display:flex;flex: 1;align-items: center;">
+                    <line-bar anim :progress="progress" active="linear-gradient(90deg, #0f0,#0ff)" />
+                </view>
+                <text class="text">{{progress}}%</text>
+            </view>
             <view style="height: 20rpx;" />
+            <circle-bar :progress="progress" canvasId="bar1" />
+            <view style="height: 20rpx;" />
+            <circle-bar anim :progress="progress" canvasId="bar2">
+                <text class="text">{{progress}}%</text>
+            </circle-bar>
             <text class="button" style="margin-top: 30rpx;" @click="onChangeProgress">改变进度0-100</text>
         </view>
 
@@ -261,7 +273,7 @@
                 console.log("日期切换", date)
             },
             onChangeProgress() {
-                this.progress = (this.progress + 60) % 100
+                this.progress = this.progress >= 100 ? 0 : this.progress + 20
             }
         }
     }
@@ -316,5 +328,12 @@
         width: calc(100% - 30rpx);
         margin-left: 15rpx;
         margin-right: 15rpx;
+    }
+
+    .text {
+        font-size: 28rpx;
+        color: #333;
+        width: 100rpx;
+        text-align: center;
     }
 </style>

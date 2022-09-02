@@ -40,7 +40,6 @@
 <script>
     /**
      * @description 条目控件
-     * 需要提前导入uni-badge https://ext.dcloud.net.cn/plugin?id=21
      * 
      * @property	{String}	labelColor			左侧边框
      * @property	{String}	labelMargin			左边距

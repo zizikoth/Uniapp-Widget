@@ -6,7 +6,7 @@
 
         <text class="iic-subtitle">{{subTitle}}</text>
 
-        <uni-badge type="error" size="small" :text="dot?1:badge" :isDot="dot" />
+        <badge type="error" size="small" :text="dot?1:badge" :isDot="dot" />
 
         <view class="right-arrow-black" />
 
@@ -16,7 +16,6 @@
 <script>
     /**
      * @description 条目控件
-     * 需要提前导入uni-badge https://ext.dcloud.net.cn/plugin?id=21
      * 
      * @property	{String}	icon		icon本地地址，控件使用页面的相对地址
      * @property	{String}	title		标题
