@@ -9,7 +9,9 @@
                 <text class="tree-node-title">{{titleKey?item[titleKey]:item}}</text>
                 <view v-if="select"
                     :class="selectIds.some(id=>id==item.id)?'tree-node-check-check':'tree-node-check-normal'"
-                    @click.stop="onItemCheck(item)" />
+                    @click.stop="onItemCheck(item)">
+                    <view class="tree-node-check-icon" />
+                </view>
             </view>
             <tree-node :data="item.children" :titleKey="titleKey" :select="select" :multi="multi" :firstCell="false"
                 :selectIds="selectIds" v-if="item.children!=null&&item.children.length>0&&item.isOpen" />
@@ -111,6 +113,7 @@
         height: 30rpx;
         border-radius: 30rpx;
         border: solid 2rpx #0076f6;
+        background-color: #FFFFFF;
     }
 
     .tree-node-check-check {
@@ -119,5 +122,15 @@
         border-radius: 30rpx;
         border: solid 2rpx #0076f6;
         background-color: #0076f6;
+    }
+
+    .tree-node-check-icon {
+        width: 10rpx;
+        height: 18rpx;
+        border-bottom: solid 4rpx #FFF;
+        border-right: solid 4rpx #FFF;
+        border-radius: 4rpx;
+        transform: rotate(45deg);
+        margin-left: 8rpx;
     }
 </style>

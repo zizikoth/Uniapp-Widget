@@ -4,6 +4,9 @@
             serverUrl: ''
         }
     }
+    methods: {
+        // 全局公共方法 调用 getApp().XXX()
+    }
 </script>
 
 <style>

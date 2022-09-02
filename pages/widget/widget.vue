@@ -1,6 +1,6 @@
 <template>
     <view class="page">
-        <title-bar title="组件" extraIcon="../../static/icon_setting.png" @extra="toast('title-bar extra()')" />
+        <title-bar title="组件" extraIcon="../../static/icon_setting.png" @extra="onTitleExtra" />
         <page-holder top="90" :show="show" />
         <view style="margin-top: 25rpx;margin-bottom: 25rpx;">
             <banner :banner="banners" bannerKey="url" titleKey="title" sourceKey="source" @click="changeImages" />
@@ -87,6 +87,14 @@
 
         <calendar :mark="mark" @change="onChangeDate" />
 
+        <view class="cell">
+            <line-bar anim :progress="progress" />
+            <view style="height: 20rpx;" />
+            <line-bar anim :progress="progress" active="linear-gradient(90deg, #0f0,#0ff)" />
+            <view style="height: 20rpx;" />
+            <text class="button" style="margin-top: 30rpx;" @click="onChangeProgress">改变进度0-100</text>
+        </view>
+
     </view>
 </template>
 
@@ -95,7 +103,7 @@
     export default {
         data() {
             return {
-                show: true,
+                show: false,
                 number: '',
                 dateTime: '',
                 grid: [{
@@ -193,32 +201,35 @@
                     isOpen: false,
                     title: '第一层级-3'
                 }],
-                mark: []
+                mark: [],
+                progress: 0
             }
         },
         onLoad(options) {
             this.images = this.banners.map(item => item.url)
-            setTimeout(() => {
-                this.show = false
-                this.mark = [{
-                    date: "2022-08-01",
+            let i = 1
+            while (i <= 12) {
+                this.mark.push({
+                    id: 1,
+                    date: `2022-${(i<10?'0':'')+i}-01`,
                     text: '出差',
-                    dot: true,
+                    dot: i % 2 == 0,
                     color: '#dd524d',
-                    count: 999
-                }, {
-                    date: "2022-08-24",
-                    text: '生日',
-                    dot: false,
-                    color: '#dd524d',
-                    count: 999
-                }]
-            }, 1000)
+                    count: i * 10
+                })
+                i++
+            }
         },
         methods: {
             toast(item) {
                 console.log(item)
                 utils.toast(item)
+            },
+            onTitleExtra() {
+                this.show = true
+                setTimeout(() => {
+                    this.show = false
+                }, 1000)
             },
             showNK() {
                 this.$refs.nk.show(this.number)
@@ -248,6 +259,9 @@
             },
             onChangeDate(date) {
                 console.log("日期切换", date)
+            },
+            onChangeProgress() {
+                this.progress = (this.progress + 60) % 100
             }
         }
     }
