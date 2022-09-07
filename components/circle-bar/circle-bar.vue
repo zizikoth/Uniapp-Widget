@@ -42,6 +42,7 @@
                 default: "#0076f6"
             },
             progress: {
+                // [0,100]
                 type: String | Number,
                 default: 0
             },
@@ -60,6 +61,7 @@
         watch: {
             progress: {
                 handler(newProgress) {
+                    clearInterval(this.timer)
                     if (this.anim) {
                         let offset = newProgress - this.rate
                         let step = offset / 15
