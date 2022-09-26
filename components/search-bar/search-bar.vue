@@ -6,7 +6,7 @@
                 v-model="value" @confirm="search" @input="change" />
         </view>
         <view class="search-bar-search" @click="search">
-            <view class="iconfont icon-search" />
+            <view class="icon-search" />
         </view>
     </view>
 </template>
