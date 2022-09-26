@@ -42,6 +42,19 @@
                 @extraClick="toast('item-cell extraClick()')" />
         </view>
 
+        <view class="cell" style="margin-top: 15rpx;">
+            <item-input-cell type="date" must line title="年月日弹窗" hint="请选择日期" />
+            <item-input-cell type="text" must line title="年月日时分" arrow="right" hint="请选择时间" :value="dateTime"
+                @change="showDTP" />
+            <item-input-cell type="text" must line title="固定数字弹窗" arrow="down" hint="请输入数字" :value="number"
+                @change="showNK" />
+            <item-input-cell type="picker" must line title="picker选择器" hint="请选择内容" :range="grid" rangeKey="name" />
+            <item-input-cell type="input" must line title="单行文本输入" hint="请输入内容" />
+            <item-input-cell type="textarea" must line title="多行文本输入" hint="请输入内容" />
+            <item-input-cell type="image" must line title="附件" />
+
+        </view>
+
         <view class="input-item" style="margin-top: 15rpx;">
             <item-input-view type="date" title="年月日选择器" hint="请选择日期" />
             <item-input-view type="text" title="年月日时分选择器" must hint="请选择时间" arrowDown :value="dateTime"

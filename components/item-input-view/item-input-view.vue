@@ -502,12 +502,11 @@
 
     .right-arrow-black {
         margin-left: 15rpx;
-        color: #333333;
         width: 16rpx;
         height: 16rpx;
         position: relative;
-        border-bottom: 4rpx solid #333333;
-        border-right: 4rpx solid #333333;
+        border-bottom: 4rpx solid #666;
+        border-right: 4rpx solid #666;
         transform: rotate(-45deg);
         border-radius: 4rpx;
     }
@@ -515,12 +514,11 @@
     .down-arrow-black {
         margin-left: 15rpx;
         margin-bottom: 13rpx;
-        color: #333333;
         width: 16rpx;
         height: 16rpx;
         position: relative;
-        border-bottom: 4rpx solid #333333;
-        border-right: 4rpx solid #333333;
+        border-bottom: 4rpx solid #666;
+        border-right: 4rpx solid #666;
         transform: rotate(45deg);
         border-radius: 4rpx;
     }

@@ -41,6 +41,8 @@
      *  text    标记显示文字
      *  color   标记文字颜色
      *  dot     标记显示       true=小红点   false=count的数字    默认false
+     * 
+     * @event {Function({selectDate,curDate})} change   当前选中的日期，当前显示的日期
      */
     const nowDate = new Date()
     export default {

@@ -50,8 +50,8 @@
      * @property	{String yyyy-MM-dd HH:mm} 	currentTime     默认:null     当前时间
      * 
      * @event       {function}  show                        调用方法显示弹窗
-     * @event       {function}  change    yyyy-MM-dd HH:mm  选中回调
-     * @event       {function}  cancel                      隐藏回调      
+     * @event       {function}  cancel                      调用方法隐藏弹窗  
+     * @event       {function}  change    yyyy-MM-dd HH:mm  选中回调    
      */
     export default {
         name: "date-time-picker",
@@ -91,7 +91,6 @@
                 this.visible = true
             },
             onCancel() {
-                this.$emit("cancel")
                 this.visible = false
             },
             onSure() {

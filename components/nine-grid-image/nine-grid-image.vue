@@ -3,7 +3,8 @@
         <view class="nine-image-box" :style="{'height':height+'rpx'}" v-for="(item,index) in curImages" :key="index">
             <image v-if="item!=''" @click="onImageClick(index)" :src="item" mode="aspectFill" class="nine-image"
                 :class="{'margin-auto-left':index%3==0,'margin-auto-mid':index%3==1,'margin-auto-right':index%3==2}" />
-            <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add">
+            <view v-if="mode=='add' && item==''" @click="onImageAdd()" class="nine-add"
+                :class="{'margin-auto-left':index%3==0,'margin-auto-mid':index%3==1,'margin-auto-right':index%3==2}">
                 <text class="nine-add-text">×</text>
             </view>
             <text v-if="mode=='add' && item!=''" @click="onImageDelete(index)" class="nine-delete"
@@ -30,7 +31,7 @@
                 default: 'show'
             },
             maxLength: {
-                type: Number,
+                type: Number | String,
                 default: 9
             },
             images: {
@@ -38,7 +39,7 @@
                 default: () => []
             },
             height: {
-                type: String,
+                type: Number | String,
                 default: '230'
             }
         },
@@ -141,10 +142,11 @@
         align-items: center;
         justify-content: center;
         width: 33.33%;
+        margin-bottom: 5rpx;
     }
 
     .nine-image {
-        width: 96%;
+        width: 94%;
         height: 94%;
         border-radius: 10rpx;
     }
@@ -153,6 +155,7 @@
         margin-top: auto;
         margin-bottom: auto;
         margin-right: auto;
+        margin-left: 0rpx;
     }
 
     .margin-auto-mid {
@@ -163,13 +166,13 @@
         margin-top: auto;
         margin-bottom: auto;
         margin-left: auto;
+        margin-right: 0rpx;
     }
 
     .nine-add {
         display: flex;
-        width: 96%;
+        width: 94%;
         height: 94%;
-        margin: auto;
         border-radius: 10rpx;
         background-color: #eeeeee;
         align-items: center;
@@ -189,8 +192,8 @@
         position: absolute;
         border-top-right-radius: 10rpx;
         border-bottom-left-radius: 10rpx;
-        top: 4%;
-        right: 2%;
+        top: 3%;
+        right: 3%;
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.6);
@@ -202,12 +205,12 @@
     }
 
     .nine-delete-left {
-        top: 4%;
-        right: 4%;
+        top: 3%;
+        right: 6%;
     }
 
     .nine-delete-right {
-        top: 4%;
+        top: 3%;
         right: 0;
     }
 </style>

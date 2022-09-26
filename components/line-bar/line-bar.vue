@@ -16,6 +16,16 @@
 </template>
 
 <script>
+    /** 
+     * @description 条形进度
+     * @property {String}           width       100%        组件宽度
+     * @property {String|Number}    height      20          rpx，组件高度
+     * @property {String}           background  #EEEEEE     组件背景颜色
+     * @property {String}           active      #0076f6     组件进度条颜色
+     * @property {String|Number}    progress    [0,100]     组件进度
+     * @property {Boolean}          anim        false       组件进度改变是否显示过渡动画
+     * 
+     */
     export default {
         name: "line-bar",
         props: {
@@ -43,11 +53,6 @@
                 type: Boolean,
                 default: false
             }
-        },
-        data() {
-            return {
-
-            };
         }
     }
 </script>

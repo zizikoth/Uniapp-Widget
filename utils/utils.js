@@ -1,5 +1,9 @@
 const isEmpty = function(data) {
-    return data == null || data === "" || data == "null" || data.length == 0
+    return data == null ||
+        data === "" ||
+        data === "null" ||
+        data.length == 0 ||
+        (data.constructor === Object && Reflect.ownKeys(data).length === 0)
 }
 
 const toast = function(message) {

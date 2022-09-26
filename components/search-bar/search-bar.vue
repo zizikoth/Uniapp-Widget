@@ -12,6 +12,11 @@
 </template>
 
 <script>
+    /**
+     * @description    搜索框
+     * @property {String}       hint        默认显示文字 
+     * @property {String}       color       搜索框背景颜色 
+     */
     export default {
         name: "search-bar",
         props: {

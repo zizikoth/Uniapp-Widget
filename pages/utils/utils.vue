@@ -40,6 +40,8 @@
         methods: {
             utils() {
                 console.log(utils.isEmpty(''))
+                console.log(utils.isEmpty({}))
+                console.log(utils.isEmpty([]))
                 console.log(utils.containStr('111,222,333', '123'))
                 console.log(utils.deepClone(this.data))
                 let query = utils.buildQuery({

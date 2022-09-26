@@ -6,6 +6,16 @@
 </template>
 
 <script>
+    /**
+     * @description 树型选择
+     * @property {Array}        data        [{id,isOpen,title,children:[]}]      数据结构
+     * @property {String}       titleKey    ''      显示关键字
+     * @property {Boolean}      select      false   是否可选择
+     * @property {Boolean}      multi       false   是否可多选
+     * 
+     * @event {Function(item)} change   所有选中条目
+     * 
+     */
     import TreeNode from '@/components/tree/tree-node.vue'
     export default {
         name: "tree",

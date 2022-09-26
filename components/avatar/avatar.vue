@@ -22,6 +22,17 @@
 </template>
 
 <script>
+    /**
+     * @description 头像组件
+     * @property    {String}            color       #0076f6     背景底色
+     * @property    {String|Number}     size       120          rpx，组件的宽高   
+     * @property    {Boolean}           circle     false        false=方形；true=原型   
+     * @property    {String|Number}     radius     10           rpx，组件的圆角   
+     * @property    {String}            avatar     ""           头像的图片地址，优先级高   
+     * @property    {String}            name       ""           头像的名字，优先级低    
+     * @property    {String}            fontColor  #FFFFFF      文字头像的颜色   
+     * @property    {String|Number}     fontSize   "40"         rpx,文字头像的字体大小    
+     */
     export default {
         name: "avatar",
         props: {

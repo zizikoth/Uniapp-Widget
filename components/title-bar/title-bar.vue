@@ -63,12 +63,12 @@
         display: flex;
         position: sticky;
         left: 0;
-        right: 0;
         top: 0;
+        width: 100%;
         height: 90rpx;
         background-color: #FFFFFF;
         box-shadow: 0px 2rpx 8rpx 0px #eeeeee;
-        z-index: 10000;
+        z-index: 900;
         align-items: center;
         justify-content: space-between;
     }
@@ -92,7 +92,6 @@
         border-bottom: 6rpx solid #333333;
         border-right: 6rpx solid #333333;
         transform: rotate(135deg);
-        border-radius: 4rpx;
     }
 
     .tb-title-title {

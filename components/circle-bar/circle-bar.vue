@@ -22,6 +22,16 @@
 </template>
 
 <script>
+    /**
+     * @description 圆环进度条，canvas绘制
+     * @property {String|Number}    size            200                 组件的宽高
+     * @property {String|Number}    width           20                  圆环的粗细
+     * @property {String}           background      #EEEEEE             圆环背景色
+     * @property {String}           active          #0076f6             圆环进度条颜色
+     * @property {String|Number}    progress        [0,100]             圆环进度
+     * @property {Boolean}          anim            false               圆环进度改变是否显示过渡动画
+     * @property {String}           canvasId        'circleBarProgress' 如果当前页面有多个组件需要指定不同的canvasId,单个可不用
+     */
     export default {
         name: "circle-bar",
         props: {

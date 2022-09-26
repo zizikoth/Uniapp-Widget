@@ -1,5 +1,5 @@
 <template>
-    <view class="load-more-box" v-if="status==1||status==2||status==3||status==4">
+    <view class="load-more-box" :style="{'background-color':color }" v-if="status==1||status==2||status==3||status==4">
         <view class="load-more-normal-box" v-if="status==1||status==2||status==3" @click="click">
             {{status==1?'上拉加载':status==2?'正在加载中':status==3?'----- 没有更多数据了 -----':''}}
         </view>

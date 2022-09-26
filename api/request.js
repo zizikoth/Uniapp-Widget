@@ -10,9 +10,9 @@ var kickOut = false
 /**
  * 请求头
  */
-function header(formData: false) {
+function header() {
     let header = {
-        "content-type": formData ? 'multipart/form-data' : 'application/json;charset=utf-8'
+        "content-type": 'application/json;charset=utf-8'
     }
     return header
 }
@@ -74,7 +74,6 @@ function post(url, data, loading = true) {
 function uploadFile(url, file) {
     return new Promise((resolve, reject) => {
         uni.uploadFile({
-            header: header(true),
             url: url,
             filePath: file,
             name: "files",

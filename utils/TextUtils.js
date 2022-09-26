@@ -1,4 +1,3 @@
-import utils from './Utils.js'
 /**
  * 去除空格
  * type: 1-前后空格 2-前空格 3-后空格 4-所有空格
@@ -25,7 +24,7 @@ const removeEmoji = function(text) {
 }
 
 const isPhone = function(phone) {
-    return !utils.isEmpty(phone) && phone.length == 11 && phone.startsWith('1')
+    return phone && phone != '' && phone.length == 11 && phone.startsWith('1')
 }
 
 const checkPwdLevel = function(password) {
