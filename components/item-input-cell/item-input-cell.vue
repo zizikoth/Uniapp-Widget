@@ -23,6 +23,28 @@
                 </view>
             </picker>
 
+            <view v-if="type=='time'" class="item-input-time-cell">
+                <picker class="item-input-cell-content" mode="date" :fields="fields" :start="start" :end="end"
+                    @change="onChangeDateStart">
+                    <view class="item-input-cell-content">
+                        <text class="item-input-cell-value" v-if="!empty(content)">{{content}}</text>
+                        <text class="item-input-cell-value" v-if="empty(content)&&!empty(value)">{{value}}</text>
+                        <text class="item-input-cell-hint" v-if="empty(content)&&empty(value)">{{hint}}</text>
+                        <view class="down-arrow-black" />
+                    </view>
+                </picker>
+                <picker class="item-input-cell-content" style="margin-top: 20rpx;" mode="date" :fields="fields"
+                    :start="start" :end="end" @change="onChangeDateEnd">
+                    <view class="item-input-cell-content">
+                        <text class="item-input-cell-value" v-if="!empty(content2)">{{content2}}</text>
+                        <text class="item-input-cell-value" v-if="empty(content2)&&!empty(value2)">{{value2}}</text>
+                        <text class="item-input-cell-hint" v-if="empty(content2)&&empty(value2)">{{hint2}}</text>
+                        <view class="down-arrow-black" />
+                    </view>
+                </picker>
+            </view>
+
+
             <picker v-if="type=='picker'" class="item-input-cell-content" mode="selector" :range="range"
                 :range-key="rangeKey" @change="onChangePicker">
                 <view class="item-input-cell-content">
@@ -35,15 +57,16 @@
 
             <view v-if="type=='input'" class="item-input-cell-content">
                 <input class="item-input-cell-input" :placeholder="hint" :enableNative="'{{false}}'" :value="value"
-                    :maxlength="maxLength" placeholder-class="item-input-cell-hint" />
+                    :maxlength="maxLength" placeholder-class="item-input-cell-hint" @input="onChangeInput" />
             </view>
 
             <view v-if="type=='textarea'" class="item-input-cell-content">
                 <textarea class="item-input-cell-textarea" :placeholder="hint" :enableNative="'{{false}}'"
-                    :value="value" :maxlength="maxLength" placeholder-class="item-input-cell-hint" />
+                    :value="value" :maxlength="maxLength" placeholder-class="item-input-cell-hint"
+                    @input="onChangeInput" />
             </view>
 
-            <view v-if="type=='image'" class="item-input-cell-content">
+            <view v-if="type=='image'" class="item-input-cell-content" style="padding-top: 10rpx;">
                 <nine-grid-image mode="add" @change="onChangeImage" />
             </view>
         </view>
@@ -76,7 +99,15 @@
                 type: String,
                 default: ''
             },
+            value2: {
+                type: String,
+                default: ''
+            },
             hint: {
+                type: String,
+                default: ''
+            },
+            hint2: {
                 type: String,
                 default: ''
             },
@@ -111,7 +142,8 @@
         },
         data() {
             return {
-                content: ''
+                content: '',
+                content2: ''
             };
         },
         methods: {
@@ -135,11 +167,36 @@
                 this.content = temp
                 this.$emit("change", this.content)
             },
+            onChangeDateStart(e) {
+                let temp = e.detail.value
+                if (this.type === "time") {
+                    temp = temp.replace(RegExp("/", "gm"), "-")
+                }
+                this.content = temp
+                this.$emit("change", {
+                    startTime: this.content,
+                    endTime: this.content2
+                })
+            },
+            onChangeDateEnd(e) {
+                let temp = e.detail.value
+                if (this.type === "time") {
+                    temp = temp.replace(RegExp("/", "gm"), "-")
+                }
+                this.content2 = temp
+                this.$emit("change", {
+                    startTime: this.content,
+                    endTime: this.content2
+                })
+            },
             onChangePicker(e) {
                 let temp = this.range[e.detail.value]
                 if (this.rangeKey == '') this.content = temp
                 else this.content = temp[this.rangeKey]
                 this.$emit('change', temp)
+            },
+            onChangeInput(e) {
+                this.$emit('change', e.detail.value)
             },
             onChangeImage(e) {
                 this.$emit("change", e)
@@ -190,6 +247,12 @@
     .item-input-cell-extra {
         display: flex;
         flex-direction: row;
+        flex: 1;
+    }
+
+    .item-input-time-cell {
+        display: flex;
+        flex-direction: column;
         flex: 1;
     }
 

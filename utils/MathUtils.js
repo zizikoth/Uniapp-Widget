@@ -2,7 +2,7 @@
  * 判断obj是否为一个整数
  */
 function isInteger(obj) {
-	return Math.floor(obj) === obj
+    return Math.floor(obj) === obj
 }
 
 /*
@@ -12,22 +12,22 @@ function isInteger(obj) {
  *   {times:100, num: 314}
  */
 function toInteger(floatNum) {
-	var ret = {
-		times: 1,
-		num: 0
-	}
-	if (isInteger(floatNum)) {
-		ret.num = floatNum
-		return ret
-	}
-	var strfi = floatNum + ''
-	var dotPos = strfi.indexOf('.')
-	var len = strfi.substr(dotPos + 1).length
-	var times = Math.pow(10, len)
-	var intNum = parseInt(floatNum * times + 0.5, 10)
-	ret.times = times
-	ret.num = intNum
-	return ret
+    var ret = {
+        times: 1,
+        num: 0
+    }
+    if (isInteger(floatNum)) {
+        ret.num = floatNum
+        return ret
+    }
+    var strfi = floatNum + ''
+    var dotPos = strfi.indexOf('.')
+    var len = strfi.substr(dotPos + 1).length
+    var times = Math.pow(10, len)
+    var intNum = parseInt(floatNum * times + 0.5, 10)
+    ret.times = times
+    ret.num = intNum
+    return ret
 }
 
 /*
@@ -40,67 +40,88 @@ function toInteger(floatNum) {
  *
  */
 function operation(a, b, op) {
-	var o1 = toInteger(a)
-	var o2 = toInteger(b)
-	var n1 = o1.num
-	var n2 = o2.num
-	var t1 = o1.times
-	var t2 = o2.times
-	var max = t1 > t2 ? t1 : t2
-	var result = null
-	switch (op) {
-		case 'add':
-			if (t1 === t2) { // 两个小数位数相同
-				result = n1 + n2
-			} else if (t1 > t2) { // o1 小数位 大于 o2
-				result = n1 + n2 * (t1 / t2)
-			} else { // o1 小数位 小于 o2
-				result = n1 * (t2 / t1) + n2
-			}
-			return result / max
-		case 'subtract':
-			if (t1 === t2) {
-				result = n1 - n2
-			} else if (t1 > t2) {
-				result = n1 - n2 * (t1 / t2)
-			} else {
-				result = n1 * (t2 / t1) - n2
-			}
-			return result / max
-		case 'multiply':
-			result = (n1 * n2) / (t1 * t2)
-			return result
-		case 'divide':
-			result = (n1 / n2) * (t2 / t1)
-			return result
-	}
+    var o1 = toInteger(a)
+    var o2 = toInteger(b)
+    var n1 = o1.num
+    var n2 = o2.num
+    var t1 = o1.times
+    var t2 = o2.times
+    var max = t1 > t2 ? t1 : t2
+    var result = null
+    switch (op) {
+        case 'add':
+            if (t1 === t2) { // 两个小数位数相同
+                result = n1 + n2
+            } else if (t1 > t2) { // o1 小数位 大于 o2
+                result = n1 + n2 * (t1 / t2)
+            } else { // o1 小数位 小于 o2
+                result = n1 * (t2 / t1) + n2
+            }
+            return result / max
+        case 'subtract':
+            if (t1 === t2) {
+                result = n1 - n2
+            } else if (t1 > t2) {
+                result = n1 - n2 * (t1 / t2)
+            } else {
+                result = n1 * (t2 / t1) - n2
+            }
+            return result / max
+        case 'multiply':
+            result = (n1 * n2) / (t1 * t2)
+            return result
+        case 'divide':
+            result = (n1 / n2) * (t2 / t1)
+            return result
+    }
 }
 
 // 加减乘除的四个接口
 function add(a, b) {
-	return operation(a, b, 'add')
+    return operation(a, b, 'add')
 }
 
 function subtract(a, b) {
-	return operation(a, b, 'subtract')
+    return operation(a, b, 'subtract')
 }
 
 function multiply(a, b) {
-	return operation(a, b, 'multiply')
+    return operation(a, b, 'multiply')
 }
 
 function divide(a, b) {
-	return operation(a, b, 'divide')
+    return operation(a, b, 'divide')
 }
 
 function isNumber(num) {
-	return typeof num === 'number' && !isNaN(num)
+    return typeof num === 'number' && !isNaN(num)
+}
+
+/**
+ * 去重
+ * @param {Object} array
+ */
+function dedupe(array) {
+    return isEmpty(array) ? [] : [...new Set(array)]
+}
+
+/**
+ * 排序
+ * @param {Object} array
+ * @param {Object} ASC_DESC true 小到大升序 false 大到小降序
+ */
+function sort(array, ASC_DESC) {
+    return isEmpty(array) ? [] : array.sort((a, b) => {
+        return ASC_DESC ? a - b : b - a
+    })
 }
 
 module.exports = {
-	add,
-	subtract,
-	multiply,
-	divide,
-	isNumber
+    add,
+    subtract,
+    multiply,
+    divide,
+    isNumber,
+    dedupe,
+    sort
 }

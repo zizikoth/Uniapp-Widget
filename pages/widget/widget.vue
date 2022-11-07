@@ -120,6 +120,12 @@
             <text class="button" style="margin-top: 30rpx;" @click="onChangeProgress">改变进度0-100</text>
         </view>
 
+        <float-list-btn ref="floatBtn" height="200">
+            <image class="float-icon" src="/static/logo.png" @click.top="onFloatClick('条目1')" />
+            <image class="float-icon" src="/static/logo.png" @click.top="onFloatClick('条目2')" />
+        </float-list-btn>
+
+        <dialog-modal ref="dialog" />
     </view>
 </template>
 
@@ -132,19 +138,19 @@
                 number: '',
                 dateTime: '',
                 grid: [{
-                    icon: '../../static/logo.png',
+                    icon: '/static/logo.png',
                     name: '国内新闻',
                     badge: 0
                 }, {
-                    icon: '../../static/logo.png',
+                    icon: '/static/logo.png',
                     name: '国际新闻',
                     badge: 1
                 }, {
-                    icon: '../../static/logo.png',
+                    icon: '/static/logo.png',
                     name: '本地新闻',
                     badge: 10
                 }, {
-                    icon: '../../static/logo.png',
+                    icon: '/static/logo.png',
                     name: '地市新闻',
                     badge: 100
                 }],
@@ -227,7 +233,7 @@
                     title: '第一层级-3'
                 }],
                 mark: [],
-                progress: 0
+                progress: 0,
             }
         },
         onLoad(options) {
@@ -287,6 +293,11 @@
             },
             onChangeProgress() {
                 this.progress = this.progress >= 100 ? 0 : this.progress + 20
+            },
+            onFloatClick(text) {
+                this.$refs.floatBtn.close()
+                this.toast(text)
+                this.$refs.dialog.show()
             }
         }
     }
@@ -348,5 +359,14 @@
         color: #333;
         width: 100rpx;
         text-align: center;
+    }
+
+
+    .float-icon {
+        width: 70rpx;
+        height: 70rpx;
+        min-height: 70rpx;
+        border-radius: 70rpx;
+        margin: 15rpx;
     }
 </style>

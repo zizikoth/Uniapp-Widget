@@ -119,7 +119,6 @@
     .circle-bar-box {
         display: flex;
         position: relative;
-
         border-radius: 50%;
     }
 

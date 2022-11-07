@@ -5,7 +5,7 @@
         'border-radius':`${height}rpx`,
         'background-color':background}">
 
-        <view class="line-bar-active" :style="{
+        <view :style="{
             'width':progress+'%',
             'background':active,
             'border-radius':`${height}rpx`,
@@ -61,10 +61,5 @@
     .line-bar-box {
         display: flex;
         flex-direction: row;
-    }
-
-    .line-bar-active {
-        align-items: center;
-        justify-content: flex-end;
     }
 </style>

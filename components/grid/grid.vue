@@ -43,7 +43,7 @@
             },
             fontSize: {
                 type: String,
-                default: '30'
+                default: '28'
             }
         },
         methods: {
