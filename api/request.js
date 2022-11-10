@@ -1,7 +1,4 @@
 import utils from '@/utils/Utils.js'
-import {
-    head
-} from 'request'
 // 请求队列
 var requestQueue = []
 // 踢出标志
