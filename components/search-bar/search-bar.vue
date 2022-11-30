@@ -52,18 +52,18 @@
     .search-bar-box {
         display: flex;
         width: 100%;
-        height: 60rpx;
+        height: 80rpx;
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
-        border-radius: 60rpx;
+        border-radius: 80rpx;
     }
 
     .search-bar-input-box {
         display: flex;
         width: calc(100% - 130rpx);
-        height: 60rpx;
-        line-height: 60rpx;
+        height: 80rpx;
+        line-height: 80rpx;
         margin-left: 30rpx;
         font-size: 28rpx;
         align-items: center;
