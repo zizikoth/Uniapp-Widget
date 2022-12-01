@@ -43,13 +43,12 @@
                 console.log(utils.isEmpty({}))
                 console.log(utils.isEmpty([]))
                 console.log(utils.containStr('111,222,333', '123'))
-                console.log(utils.deepClone(this.data))
-                let query = utils.buildQuery({
+                let data = {
                     title: '标题',
                     content: '内容',
                     plan: '123abc啊吧从!@#$%^*()_+<>?:{}|[];,.'
-                })
-                console.log(query)
+                }
+                console.log(utils.delObjFields(data, ['content', 'plan']))
             },
             json() {
                 console.log(jsonUtils.stringify(this.data))

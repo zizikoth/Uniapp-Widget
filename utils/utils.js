@@ -20,44 +20,17 @@ const containStr = function(origin, target) {
     return origin.split(',').indexOf(target.toString()) != -1
 }
 
-const deepClone = function(obj) {
-    var o;
-    if (typeof obj == "object") {
-        if (obj === null) {
-            o = null;
-        } else {
-            if (obj instanceof Array) {
-                o = [];
-                for (var i = 0, len = obj.length; i < len; i++) {
-                    o.push(deepClone(obj[i]));
-                }
-            } else {
-                o = {};
-                for (var j in obj) {
-                    o[j] = deepClone(obj[j]);
-                }
-            }
-        }
-    } else {
-        o = obj;
-    }
-    return o;
-}
-
-const buildQuery = function(params, encode = true) {
-    let temp = ""
-    for (var key in params) {
-        let value = params[key]
-        temp = temp === "" ? `?${key}=${encode?encodeURIComponent(value):value}` :
-            `${temp}&${key}=${encode?encodeURIComponent(value):value}`
-    }
-    return temp
+const delObjFields = function(obj, fields) {
+    let copy = Object.assign({}, obj)
+    fields.forEach(key => {
+        delete copy[key]
+    })
+    return copy
 }
 
 module.exports = {
     isEmpty,
     toast,
     containStr,
-    deepClone,
-    buildQuery
+    delObjFields
 }
