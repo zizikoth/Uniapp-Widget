@@ -1,78 +1,88 @@
 <template>
-    <view class="iiv-box" :style="{'border-radius':radius+'rpx','margin-bottom':margin+'rpx'}">
+    <view class="iiv-box-h" :class="{'iiv-box-v':type=='textarea'||type=='image'||type=='customV', 'iiv-line' :line }">
         <view class="iiv-title-box">
-            <view class="iiv-label" />
-            <text class="iiv-title">{{title}}</text>
-            <text class="iiv-subTitle" v-if="subTitle">({{subTitle}})</text>
-            <text class="iiv-must" v-if="must">*</text>
+            <text class="iiv-title-must">{{must?'*':''}}</text>
+            <text :style="{'width':titleWidth+'rpx'}">{{title}}</text>
         </view>
 
-        <view v-if="type==='text'">
-            <view class="iiv-item-box" @click="onChangeText">
-                <text class="iiv-text-select" v-if="!empty(value)">{{value}}</text>
-                <text class="iiv-text-normal" v-if="empty(value)">{{hint}}</text>
-                <view :class="arrowDown?'down-arrow-black':'right-arrow-black'" v-if="arrow" />
+        <view v-if="type=='customH'" class="iiv-extra">
+            <slot></slot>
+        </view>
+
+        <view v-if="type=='customV'" class="iiv-customv-box">
+            <slot></slot>
+        </view>
+
+        <view v-if="type=='text'" class="iiv-extra" @click="onTextClick">
+            <text v-if="value">{{value}}</text>
+            <text class="iiv-hint" v-else>{{hint?hint:'请选择'+title}}</text>
+            <view class="iiv-arrow">
+                <arrow :arrow="arrow" color="#666666" />
             </view>
         </view>
 
-        <view v-if="type==='picker'">
-            <picker mode="selector" :range="range" :range-key="rangeKey" @change="onPickerChange">
-                <view class="iiv-item-box">
-                    <text class="iiv-text-select" v-if="!empty(content)">{{content}}</text>
-                    <text class="iiv-text-select" v-if="empty(content)&&!empty(value)">{{value}}</text>
-                    <text class="iiv-text-normal" v-if="empty(content)&&empty(value)">{{hint}}</text>
-                    <view class="down-arrow-black" />
+        <view v-if="type=='either'" class="iiv-extra">
+            <view class="iiv-either-box">
+                <view class="iiv-either-item" v-for="(item,index) in range" :key="index" @click="onEitherClick(item)">
+                    <view class="iiv-either-check" :class="{'iiv-either-checked':item.id===value}" />
+                    <text class="iiv-either-text"
+                        :class="{'iiv-either-text-checked':item.id===value}">{{rangeKey?item[rangeKey]:item}}</text>
+                </view>
+            </view>
+        </view>
+
+        <view v-if="type=='picker'||type=='date'" class="iiv-extra">
+            <picker :disabled="!enable" class="iiv-picker-box" :mode="type=='picker'?'selector':'date'" :fields="fields"
+                :range="range" :range-key="rangeKey" @change="onPickerChange">
+                <view class="iiv-picker-box">
+                    <text v-if="value">{{value}}</text>
+                    <text class="iiv-hint" v-else>{{hint?hint:'请选择'+title}}</text>
+                    <view class="iiv-arrow">
+                        <arrow arrow="bottom" color="#666666" />
+                    </view>
                 </view>
             </picker>
         </view>
 
-        <view v-if="type==='date'">
-            <picker mode="date" :value="value" :fields="fields" :start="start" :end="end" @change="onChange">
-                <view class="iiv-item-box">
-                    <text class="iiv-text-select" v-if="!empty(content)">{{content}}</text>
-                    <text class="iiv-text-select" v-if="empty(content)&&!empty(value)">{{value}}</text>
-                    <text class="iiv-text-normal" v-if="empty(content)&&empty(value)">{{hint}}</text>
-                    <view class="down-arrow-black" />
-                </view>
-            </picker>
-        </view>
-
-        <view v-if="type==='input'">
-            <view class="iiv-input-box">
-                <input class="iiv-input-content iiv-text-select" placeholder-class="iiv-item-normal"
-                    placeholder-style="font-size: 28rpx;color: #666666;" :enableNative="'{{false}}'" :value="value"
-                    :placeholder="hint" :maxlength="maxLength" :password="password" @input="onChange" />
+        <view v-if="type=='time'" class="iiv-extra">
+            <view class="iiv-time-box">
+                <picker :disabled="!enable" mode="date" :fields="fields" @change="onTimeChange1">
+                    <view class="iiv-picker-box">
+                        <text v-if="timeValue1">{{timeValue1}}</text>
+                        <text class="iiv-hint" v-else>{{timeHint1}}</text>
+                        <view class="iiv-arrow">
+                            <arrow arrow="bottom" color="#666666" />
+                        </view>
+                    </view>
+                </picker>
+                <picker :disabled="!enable" mode="date" :fields="fields" @change="onTimeChange2">
+                    <view class="iiv-picker-box" style="margin-top: 20rpx;">
+                        <text v-if="timeValue2">{{timeValue2}}</text>
+                        <text class="iiv-hint" v-else>{{timeHint2}}</text>
+                        <view class="iiv-arrow">
+                            <arrow arrow="bottom" color="#666666" />
+                        </view>
+                    </view>
+                </picker>
             </view>
         </view>
 
-        <view v-if="type==='textarea'">
-            <view class="iiv-textarea-box">
-                <textarea class="iiv-match-parent iiv-text-select" placeholder-class="iiv-item-normal"
-                    placeholder-style="font-size: 28rpx;color: #666666;" :enableNative="'{{false}}'" :value="value"
-                    :placeholder="hint" :maxlength="maxLength" @input="onChange" />
-            </view>
+        <view v-if="type=='input'" class="iiv-extra">
+            <input v-if="enable" class="iiv-input-text" :enableNative="'{{false}}'" :value="value"
+                :placeholder="hint==''?'请输入'+title:hint" placeholder-class="iiv-input-hint" :maxlength="maxLength"
+                @input="onInputChange" />
+            <text v-if="!enable">{{value?value:hint?hint:'请输入'+title}}</text>
         </view>
 
-        <view v-if="type==='radio'">
-            <view class="ivv-radio-box">
-                <view class="ivv-radio-item-box" v-for="(item,index) in range" :key="index">
-                    <text :class="radioSelectIndex===index?'ivv-radio-select':'ivv-radio-normal'"
-                        @click="onRadioClick(index)">{{rangeKey?item[rangeKey]:item}}</text>
-                </view>
-            </view>
+        <view v-if="type=='textarea'" class="iiv-textarea-box">
+            <textarea :disabled="!enable" class="iiv-textarea-text" :enableNative="'{{false}}'" :value="value"
+                :placeholder="hint==''?'请输入'+title:hint" placeholder-class="iiv-textarea-hint" :maxlength="maxLength"
+                @input="onInputChange" />
         </view>
 
-        <view v-if="type==='check'">
-            <view class="ivv-radio-box">
-                <view class="ivv-radio-item-box" v-for="(item,index) in range" :key="index">
-                    <text :class="checkSelectIndex.indexOf(index)!=-1?'ivv-radio-select':'ivv-radio-normal'"
-                        @click="onCheckClick(index)">{{rangeKey?item[rangeKey]:item}}</text>
-                </view>
-            </view>
-        </view>
-
-        <view v-if="type==='image'" style="margin: 20rpx;">
-            <nine-grid-image mode="add" :images="images" :height="imageHeight" @change="onChangeImage" />
+        <view v-if="type=='image'" class="iiv-image-box">
+            <nine-grid-image :mode="enable?'add':'show'" :height="imageHeight" :images="value"
+                @change="onImageChange" />
         </view>
 
     </view>
@@ -80,114 +90,99 @@
 
 <script>
     /**
-     * ItemInputView 
-     * 
-     * @description 条目数据控件 
-     * 				显示内容优先级：操作选中的数据 > 配置的value > 配置的hint
-     * 
-     * @property	{String} 	title		"标题"				标题
-     * @property	{Boolean} 	must		false				是否必填
-     * @property	{String} 	subTitle	""					副标题
-     * @property	{String} 	radius		15					圆角
-     * @property	{String} 	margin		25					margin-bottom
-     * 
-     * @property	{String} 	type		""		类型
-     * 		@value	text		文本显示
-     * 		@value	picker		列表选择
-     * 		@value	date		日期选择
-     * 		@value	input		单行输入
-     * 		@value	textarea	文本域输入
-     * 		@value	radio		条目单选
-     * 		@value	check		条目多选
-     * 		@value	image		九宫格图片
-     * 
-     * text类型
-     * @property	{String} 	hint		"请输入或选择内容"		提示文字
-     * @property	{String} 	value		""					显示文字
-     * @property	{String} 	arrow		true				是否显示向右侧箭头
-     * 
-     * picker类型
-     * @property	{String} 	hint		"请输入或选择内容"		提示文字
-     * @property	{String} 	value		""					默认显示文字
-     * @property	{Array} 	range		[]					列表选择 列表 
-     * @property	{String} 	rangeKey	""					列表选择 显示的key
-     * 
-     * date类型
-     * @property	{String} 	hint		"请输入或选择内容"		提示文字
-     * @property	{String} 	value		""					默认显示文字
-     * @property	{String} 	fields		"day"				时间选择颗粒度 year month day
-     * @property	{String} 	start	  	""					时间选择开始时间 
-     * @property	{String} 	end			""					时间选择结束时间 
-     * 
-     * input类型
-     * @property	{String} 	hint		"请输入或选择内容"		提示文字
-     * @property	{String} 	value		""					默认显示文字
-     * @property	{String} 	maxLength	默认200				文本长度 
-     * @property	{Boolean}	password	false				是否是密码类型
-     * 
-     * textarea类型
-     * @property	{String} 	hint		"请输入或选择内容"		提示文字
-     * @property	{String} 	value		""					默认显示文字
-     * @property	{String} 	maxLength	默认200				文本长度 
-     * 
-     * radio类型
-     * @property	{Array} 	range		[]					单选选择 列表 
-     * @property	{String} 	rangeKey	""					单选选择 显示的key
-     * @property	{Number} 	radioIndex	-1					单选选择 默认选中的下标
-     * 
-     * check类型
-     * @property	{Array} 	range		[]					多选选择 列表 
-     * @property	{String} 	rangeKey	""					多选选择 显示的key
-     * @property	{Array} 	checkIndex 	[]					多选选择 默认选中的所有下标集合
-     * 
-     * image类型
-     * @property	{Array} 	images		[]					九宫格默认的显示图片 
-     * @property	{String} 	imageHeight	220					九宫格图片的高度 默认高度220rpx
-     * 
-     * @event 		{Function} 	change		e					返回的数据 
+     * @property {String}   type        类型           默认：text
+     *      @value customH      开放右边空间 <slot/>
+     *      @value customV      开放下边空间 <slot/>
+     *      @value text         文本类型
+     *      @value either       多选一
+     *      @value picker       选择弹窗
+     *      @value date         日期选择
+     *      @value time         开始时间+结束时间
+     *      @value input        单行输入
+     *      @value textarea     多行输入
+     *      @value image        九宫格图片选择
+     * @property {Boolean}  enable      是否可输入               默认：true
+     * @property {Boolean}  line        是否显示下划线            默认：true
+     * @property {String}   must        必填标识                 默认：false
+     * @property {String}   title       标题                    默认：""
+     * @property {String}   titleWidth  标题宽度，超过200后会形变  默认：120
+     * @property {String}   arrow       text模式的箭头方向                        默认：""
+     *      @value left         向左
+     *      @value top          向上
+     *      @value right        向右
+     *      @value bottom       向下
+     * @property {String}   value       text,picker,date,input,textarea模式传入的文字，either模式传入选中的id，image模式传入图片列表    默认：null
+     * @property {String}   hint        text,picker,date,input,textarea模式的提示文字             默认：请选择/请输入+标题
+     * @property {String}   timeHint1   time模式的提示开始时间文字  默认：请选择开始时间
+     * @property {String}   timeHint2   time模式的提示结束时间文字  默认：请选择结束时间
+     * @property {String}   timeValue1  time模式的开始时间文字      默认：null
+     * @property {String}   timeValue2  time模式的结束时间文字      默认：null
+     * @property {String}   fields      date,time模式的时间颗粒度   默认：day
+     *      @value year         年
+     *      @value month        月
+     *      @value day          日
+     * @property {String}   range       either，picker模式的数据源    默认：[]
+     * @property {String}   rangeKey    either，picker模式的显示key   默认：""
+     * @property {String}   maxLength   input,textarea模式文字长度    默认：200
+     * @property {String}   imageHeight image模式下图片高度            默认：200
      */
     export default {
         name: "item-input-view",
         props: {
             type: {
                 type: String,
-                default: ""
+                default: "text"
+            },
+            enable: {
+                type: Boolean,
+                default: true
+            },
+            line: {
+                type: Boolean,
+                default: true
             },
             title: {
                 type: String,
-                default: "标题"
+                default: ""
+            },
+            titleWidth: {
+                type: String | Number,
+                default: 120
             },
             must: {
                 type: Boolean,
                 default: false
             },
-            subTitle: {
+            arrow: {
                 type: String,
                 default: ""
             },
-            radius: {
-                type: String,
-                default: "15"
-            },
-            margin: {
-                type: String,
-                default: "15"
+            value: {
+                default: null
             },
             hint: {
                 type: String,
-                default: "请输入或选择内容"
-            },
-            value: {
-                type: String,
                 default: ""
             },
-            arrow: {
-                type: Boolean,
-                default: true
+            timeValue1: {
+                type: String,
+                default: null
             },
-            arrowDown: {
-                type: Boolean,
-                default: false
+            timeValue2: {
+                type: String,
+                default: null
+            },
+            timeHint1: {
+                type: String,
+                default: "请选择开始时间"
+            },
+            timeHint2: {
+                type: String,
+                default: "请选择结束时间"
+            },
+            fields: {
+                type: String,
+                default: "day"
             },
             range: {
                 type: Array,
@@ -197,329 +192,228 @@
                 type: String,
                 default: ""
             },
-            fields: {
-                type: String,
-                default: "day"
-            },
-            start: {
-                type: String,
-                default: ""
-            },
-            end: {
-                type: String,
-                default: ""
-            },
-            password: {
-                type: Boolean,
-                default: false
-            },
             maxLength: {
-                type: Number,
+                type: String | Number,
                 default: 200
-            },
-            radioIndex: {
-                default: -1
-            },
-            checkIndex: {
-                type: Array,
-                default: () => []
             },
             images: {
                 type: Array,
                 default: () => []
             },
             imageHeight: {
-                type: String,
-                default: "220"
-            },
-        },
-        watch: {
-            radioIndex: {
-                handler(newValue) {
-                    if (newValue === "" || newValue == null) {
-                        this.radioSelectIndex = -1
-                    } else {
-                        this.radioSelectIndex = newValue
-                    }
-                },
-                immediate: true
-            },
-            checkIndex: {
-                handler(newValue) {
-                    if (newValue == null || newValue.length == 0) {
-                        this.checkSelectIndex = []
-                    } else {
-                        this.checkSelectIndex = newValue
-                    }
-                },
-                immediate: true
+                type: String | Number,
+                default: 220
             }
         },
         data() {
             return {
-                // 操作后显示的文字
-                content: "",
-                // radio选中的条目
-                radioSelectIndex: -1,
-                // check选中的条目集合
-                checkSelectIndex: []
-            };
+                startTime: "",
+                endTime: ""
+            }
         },
         methods: {
-            empty(data) {
-                let isEmpty = data === "" || data === "null" || data === undefined || data === null || data.length === 0
-                if (isEmpty) {
-                    return true
-                } else {
-                    let str = data.toString()
-                    return str.indexOf('undefined') != -1 || str.indexOf('null') != -1
-                }
+            onTextClick() {
+                this.$emit('change', this.value)
+            },
+            onEitherClick(item) {
+                this.$emit('change', item)
             },
             onPickerChange(e) {
-                this.content = this.range[e.detail.value][this.rangeKey]
-                this.$emit("change", this.range[e.detail.value])
-            },
-            onChange(e) {
-                let temp = e.detail.value
-                if (this.type === "date") {
-                    temp = temp.replace(RegExp("/", "gm"), "-")
+                if (this.type == 'picker') {
+                    this.$emit('change', this.range[e.detail.value])
+                } else if (this.type == 'date') {
+                    let temp = e.detail.value.replace(RegExp("/", "gm"), "-")
+                    this.$emit('change', temp)
                 }
-                this.content = temp
-                this.$emit("change", this.content)
             },
-            onChangeText() {
-                this.$emit("change", this.value)
+            onTimeChange1(e) {
+                this.startTime = e.detail.value.replace(RegExp("/", "gm"), "-")
+                this.$emit('change', {
+                    startTime: this.startTime,
+                    endTime: this.endTime
+                })
             },
-            onChangeImage(images) {
-                this.$emit("change", images)
+            onTimeChange2(e) {
+                this.endTime = e.detail.value.replace(RegExp("/", "gm"), "-")
+                this.$emit('change', {
+                    startTime: this.startTime,
+                    endTime: this.endTime
+                })
             },
-            onRadioClick(index) {
-                this.radioSelectIndex = index
-                this.$emit("change", this.range[index])
+            onInputChange(e) {
+                this.$emit('change', e.detail.value)
             },
-            onCheckClick(index) {
-                if (this.checkSelectIndex.indexOf(index) === -1) {
-                    // 不存在 添加
-                    this.checkSelectIndex.push(index)
-                } else {
-                    // 存在 删除
-                    this.checkSelectIndex = this.checkSelectIndex.filter(position => position != index)
-                }
-                // 下标排序
-                this.checkSelectIndex.sort()
-                let list = this.checkSelectIndex.map(item => this.range[item])
-                this.$emit("change", list)
-            },
+            onImageChange(e) {
+                this.$emit('change', e)
+            }
         }
     }
 </script>
 
 <style>
-    .iiv-text-normal {
-        font-size: 28rpx;
-        color: #666666;
-    }
-
-    .iiv-text-select {
-        font-size: 28rpx;
-        color: #333333;
-    }
-
-    .iiv-line-one {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .iiv-match-parent {
+    .iiv-box-h {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         width: 100%;
-        height: 100%;
+        font-size: 28rpx;
+        color: #333;
     }
 
-    .iiv-box {
+    .iiv-box-v {
         display: flex;
         flex-direction: column;
         width: 100%;
-        background-color: #FFFFFF;
-        border-radius: 15rpx;
+        font-size: 28rpx;
+        color: #333;
+    }
+
+    .iiv-line {
+        border-bottom: solid 2rpx #eee;
     }
 
     .iiv-title-box {
         display: flex;
         flex-direction: row;
-        width: calc(100% - 50rpx);
-        margin-left: 25rpx;
-        margin-right: 25rpx;
-        height: 90rpx;
+        max-width: 200rpx;
+        min-height: 100rpx;
         align-items: center;
-        border-bottom: solid 2rpx #eeeeee;
     }
 
-    .iiv-label {
-        width: 8rpx;
-        height: 28rpx;
-        background-color: #0076f6;
-        margin-right: 15rpx;
-        border-radius: 3rpx;
-    }
-
-    .iiv-title {
-        font-size: 30rpx;
-        font-weight: bold;
-        color: #333333;
-    }
-
-    .iiv-must {
-        font-size: 30rpx;
-        font-weight: bold;
-        color: #FF0000;
-        margin-left: 10rpx;
-        margin-top: 10rpx;
-    }
-
-    .iiv-subTitle {
+    .iiv-title-must {
+        width: 20rpx;
         font-size: 24rpx;
-        color: #666666;
+        color: #ff0000;
+        margin-top: 4rpx;
+    }
+
+    .iiv-extra {
+        display: flex;
+        flex-direction: row;
+        width: 400rpx;
+        min-height: 100rpx;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .iiv-hint {
+        display: flex;
+        color: #999;
+    }
+
+    .iiv-arrow {
+        margin-top: 4rpx;
+    }
+
+    .iiv-either-box {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        width: 400rpx;
+    }
+
+    .iiv-either-item {
+        display: flex;
+        flex-direction: row;
+        width: 200rpx;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 10rpx;
+        margin-bottom: 10rpx;
+    }
+
+    .iiv-either-check {
+        width: 20rpx;
+        height: 20rpx;
+        border: solid 6rpx #eee;
+        background-color: #FFF;
+        border-radius: 50%;
+        margin-right: 10rpx;
         margin-left: 10rpx;
     }
 
-    .iiv-item-box {
-        display: flex;
-        flex-direction: row;
-        width: calc(100% - 50rpx);
-        padding-left: 25rpx;
-        padding-right: 25rpx;
-        height: 90rpx;
-        align-items: center;
-        justify-content: space-between;
+    .iiv-either-checked {
+        border-color: #0076f6;
     }
 
-    .iiv-input-box {
-        display: flex;
-        flex-direction: row;
-        /* #ifdef H5 */
-        width: calc(100% - 50rpx);
-        padding-left: 25rpx;
-        padding-right: 25rpx;
-        /* #endif */
-        /* #ifndef H5 */
-        width: calc(100% - 30rpx);
-        padding-left: 15rpx;
-        padding-right: 15rpx;
-        /* #endif */
-        height: 90rpx;
+    .iiv-either-text {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        text-align: right;
+        max-width: 140rpx;
+        color: #999;
     }
 
-    .iiv-input-content {
+    .iiv-either-text-checked {
+        color: #333;
+    }
+
+    .iiv-picker-box {
+        display: flex;
+        flex-direction: row;
         width: 100%;
-        height: 80rpx;
+        min-width: 400rpx;
+        justify-content: flex-end;
+    }
+
+    .iiv-time-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .iiv-input-text {
+        width: 450rpx;
+        font-size: 28rpx;
+        color: #333;
+        text-align: end;
+    }
+
+    .iiv-input-hint {
+        text-align: end;
+        font-size: 28rpx;
+        color: #999;
     }
 
     .iiv-textarea-box {
-        display: flex;
-        flex-direction: row;
+        width: calc(100% - 40rpx);
+        padding: 20rpx;
         /* #ifdef H5 */
-        width: calc(100% - 50rpx);
-        padding-left: 25rpx;
-        padding-right: 25rpx;
+        height: 220rpx;
         /* #endif */
         /* #ifndef H5 */
-        width: calc(100% - 30rpx);
-        padding-left: 15rpx;
-        padding-right: 15rpx;
+        height: 235rpx;
         /* #endif */
-        height: 200rpx;
-        padding-top: 20rpx;
-        padding-bottom: 20rpx;
-        margin-bottom: 20rpx;
+        border-radius: 16rpx;
+        background-color: #f5f5f5;
+        margin-bottom: 30rpx;
     }
 
-    .ivv-radio-box {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: calc(100% - 20rpx);
-        padding-left: 10rpx;
-        padding-right: 10rpx;
-        padding-top: 10rpx;
-        padding-bottom: 10rpx;
-    }
-
-    .ivv-radio-item-box {
-        display: flex;
-        width: 33.3%;
-        height: 90rpx;
-        line-height: 90rpx;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .ivv-radio-normal {
-        width: 190rpx;
-        /* #ifndef H5 */
-        height: 60rpx;
-        line-height: 60rpx;
-        /* #endif */
-        /* #ifdef H5 */
-        height: 58rpx;
-        line-height: 58rpx;
-        padding-bottom: 2rpx;
-        /* #endif */
-        padding-left: 15rpx;
-        padding-right: 15rpx;
-        text-align: center;
-        border-radius: 10rpx;
-        background-color: #eeeeee;
-        color: #333333;
+    .iiv-textarea-text {
+        background-color: #f5f5f5;
+        width: 100%;
+        height: 220rpx;
         font-size: 28rpx;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        color: #333;
+        line-height: 45rpx;
+        border-radius: 16rpx;
     }
 
-    .ivv-radio-select {
-        width: 190rpx;
-        /* #ifndef H5 */
-        height: 60rpx;
-        line-height: 60rpx;
-        /* #endif */
-        /* #ifdef H5 */
-        height: 58rpx;
-        line-height: 58rpx;
-        padding-bottom: 2rpx;
-        /* #endif */
-        padding-left: 15rpx;
-        padding-right: 15rpx;
-        text-align: center;
-        border-radius: 10rpx;
-        background-color: #0076f6;
-        color: #ffffff;
+    .iiv-textarea-hint {
         font-size: 28rpx;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        color: #999;
+        line-height: 45rpx;
     }
 
-    .right-arrow-black {
-        margin-left: 15rpx;
-        width: 16rpx;
-        height: 16rpx;
-        position: relative;
-        border-bottom: 4rpx solid #666;
-        border-right: 4rpx solid #666;
-        transform: rotate(-45deg);
-        border-radius: 4rpx;
+    .iiv-image-box {
+        width: 100%;
     }
 
-    .down-arrow-black {
-        margin-left: 15rpx;
-        margin-bottom: 13rpx;
-        width: 16rpx;
-        height: 16rpx;
-        position: relative;
-        border-bottom: 4rpx solid #666;
-        border-right: 4rpx solid #666;
-        transform: rotate(45deg);
-        border-radius: 4rpx;
+    .iiv-customv-box {
+        width: 100%;
     }
 </style>

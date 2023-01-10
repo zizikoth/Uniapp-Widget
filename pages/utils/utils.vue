@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import utils from '@/utils/Utils.js'
+    import utils from '@/utils/utils.js'
     import jsonUtils from '@/utils/JsonUtils.js'
     import timeUtils from '@/utils/TimeUtils.js'
     import mathUtils from '@/utils/MathUtils.js'

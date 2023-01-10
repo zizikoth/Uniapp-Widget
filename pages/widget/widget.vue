@@ -42,37 +42,20 @@
                 @extraClick="toast('item-cell extraClick()')" />
         </view>
 
-        <view class="cell" style="margin-top: 15rpx;">
-            <item-input-cell type="date" must line title="年月日弹窗" hint="请选择日期" />
-            <item-input-cell type="text" must line title="年月日时分" arrow="right" hint="请选择时间" :value="dateTime"
+        <view class="input-item-view">
+            <item-input-view type="date" title="年月日" hint="请选择日期" />
+            <item-input-view type="text" title="年月日时分" must titleWidth="150" hint="请选择时间" :value="dateTime"
                 @change="showDTP" />
-            <item-input-cell type="text" must line title="固定数字弹窗" arrow="down" hint="请输入数字" :value="number"
+            <date-time-dialog ref="dtp" @change="bindDateTime" />
+            <item-input-view type="text" title="数字弹窗" subTitle="最高100分" must hint="请输入数字" :value="number"
                 @change="showNK" />
-            <item-input-cell type="picker" must line title="picker选择器" hint="请选择内容" :range="grid" rangeKey="name" />
-            <item-input-cell type="input" must line title="单行文本输入" hint="请输入内容" />
-            <item-input-cell type="textarea" must line title="多行文本输入" hint="请输入内容" />
-            <item-input-cell type="image" must line title="附件" />
-
-        </view>
-
-        <view class="input-item" style="margin-top: 15rpx;">
-            <item-input-view type="date" title="年月日选择器" hint="请选择日期" />
-            <item-input-view type="text" title="年月日时分选择器" must hint="请选择时间" arrowDown :value="dateTime"
-                @change="showDTP" />
-            <date-time-picker ref="dtp" @change="bindDateTime" />
-            <item-input-view type="text" title="固定文本显示数字弹窗" subTitle="最高100分" must hint="请输入数字" arrowDown
-                :value="number" @change="showNK" />
-            <number-keyboard ref="nk" @change="bindNumber" />
-            <item-input-view type="picker" title="Picker选择器" hint="请选择内容" :range="grid" rangeKey="name" />
-            <item-input-view type="input" title="单行文本输入" hint="请输入内容" />
-            <item-input-view type="textarea" title="多行文本输入" hint="请输入内容" />
-            <item-input-view type="radio" title="单选"
-                :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
-                :radioIndex="0" @change="toast($event)" />
-            <item-input-view type="check" title="多选"
-                :range="['aaaaaaaaaaaaaaaaaaaa','bbbbbbbbbbbbbbbbbbbb','cccccccccccccccccccc','dddddddddddddddddddd','eeeeeeeeeeeeeeeeeeee']"
-                :checkIndex="[0,1]" @change="toast($event)" />
-            <item-input-view type="image" title="图片选择器" />
+            <number-keyboard-dialog ref="nk" @change="bindNumber" />
+            <item-input-view type="picker" title="picker" hint="请选择内容" :range="grid" rangeKey="name" />
+            <item-input-view type="input" title="单行文本" hint="请输入内容" />
+            <item-input-view type="textarea" title="多行文本" titleWidth="200" hint="请输入内容" />
+            <item-input-view type="either" title="单选" :range="grid" rangeKey="name" :value="0"
+                @change="toast($event)" />
+            <item-input-view type="image" title="图片" />
         </view>
 
         <view class="input-item">
@@ -84,6 +67,7 @@
             <avatar name="张三" size="60" fontSize="30" circle />
             <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三"
                 radius="30" />
+            <avatar avatar="https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg" name="张三" circle />
         </view>
 
         <view class="list" style="margin-top: 15rpx;">
@@ -95,10 +79,6 @@
         <load-more :status="2" />
         <load-more :status="3" />
         <load-more :status="4" empty="内容已被删除" />
-
-        <view class="cell">
-            <tree :data="treeData" select multi :selectIds="[1]" @change="onTreeChange" />
-        </view>
 
         <calendar :mark="mark" @change="onChangeDate" />
 
@@ -130,7 +110,7 @@
 </template>
 
 <script>
-    import utils from '@/utils/Utils.js'
+    import utils from '@/utils/utils.js'
     export default {
         data() {
             return {
@@ -138,18 +118,22 @@
                 number: '',
                 dateTime: '',
                 grid: [{
+                    id: 0,
                     icon: '/static/logo.png',
                     name: '国内新闻',
                     badge: 0
                 }, {
+                    id: 1,
                     icon: '/static/logo.png',
                     name: '国际新闻',
                     badge: 1
                 }, {
+                    id: 2,
                     icon: '/static/logo.png',
                     name: '本地新闻',
                     badge: 10
                 }, {
+                    id: 3,
                     icon: '/static/logo.png',
                     name: '地市新闻',
                     badge: 100
@@ -352,6 +336,7 @@
         width: calc(100% - 30rpx);
         margin-left: 15rpx;
         margin-right: 15rpx;
+        background-color: #FFFFFF;
     }
 
     .text {
@@ -368,5 +353,15 @@
         min-height: 70rpx;
         border-radius: 70rpx;
         margin: 15rpx;
+    }
+
+    .input-item-view {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 120rpx);
+        margin: 30rpx;
+        padding: 30rpx;
+        background-color: #FFF;
+        border-radius: 16rpx;
     }
 </style>

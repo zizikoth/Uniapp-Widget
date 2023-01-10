@@ -2,8 +2,8 @@
     <view class="dialog-modal" @touchmove.stop.prevent="()=>false">
         <view class="dailog-mask" :class="{'dailog-mask-show':visible}" v-if="visible" @click="{}" />
         <view class="dialog-box dialog-hide" :class="{'dialog-show':visible}">
-            <view class="dialog-close" @click="cancel()">
-                <view class="down-arrow-black" />
+            <view class="dialog-close" @click="hide()">
+                <view class="dialog-close-icon" />
             </view>
             <view class="dialog-content">
                 <slot></slot>
@@ -25,7 +25,7 @@
             };
         },
         methods: {
-            cancel() {
+            hide() {
                 this.visible = false
             },
             show() {
@@ -52,7 +52,7 @@
         transition-property: opacity;
         transition-duration: 0.3s;
         opacity: 0;
-        z-index: 1000;
+        z-index: 999;
     }
 
     .dailog-mask-show {
@@ -96,18 +96,44 @@
         border-top-right-radius: 20rpx;
     }
 
-    .down-arrow-black {
-        margin-left: 15rpx;
-        margin-bottom: 13rpx;
-        color: #333333;
-        width: 16rpx;
-        height: 16rpx;
-        position: relative;
-        border-bottom: 4rpx solid #333333;
-        border-right: 4rpx solid #333333;
-        transform: rotate(45deg);
-        border-radius: 4rpx;
+    .dialog-close {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 90rpx;
+        align-items: center;
+        justify-content: center;
+        border-bottom: solid 4rpx #eee;
     }
+
+    .dialog-close-icon {
+        position: relative;
+        width: 4rpx;
+        height: 40rpx;
+        background: #333;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        display: inline-block;
+    }
+
+    .dialog-close-icon:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 4rpx;
+        height: 40rpx;
+        background: #333;
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+
 
     .dialog-content {
         display: flex;

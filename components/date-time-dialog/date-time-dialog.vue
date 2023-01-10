@@ -1,41 +1,40 @@
 <template>
-    <view class="dtp-container" @touchmove.stop.prevent="()=>false">
-        <view v-if="visible" class="dtp-mask" :class="{'dtp-mask-show':visible}" @click="emptyClick()" />
-        <view class="dtp-box hide" :class="{'show':visible}">
-            <view class="dtp-item dtp-round" @click="onCancel()">
-                <view class="down-arrow-black" />
-            </view>
-            <picker-view class="dtp-picker-box" indicator-style="height:80rpx;" :value="value" @change="onChange">
-                <picker-view-column>
-                    <view class="dtp-picker-text" v-for="(item,index) in yearList" :key="index">
-                        {{format(item)}}年
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="dtp-picker-text" v-for="(item,index) in monthList" :key="index">
-                        {{format(item)}}月
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="dtp-picker-text" v-for="(item,index) in dayList" :key="index">
-                        {{format(item)}}日
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="dtp-picker-text" v-for="(item,index) in hourList" :key="index">
-                        {{format(item)}}时
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="dtp-picker-text" v-for="(item,index) in minList" :key="index">
-                        {{format(item)}}分
-                    </view>
-                </picker-view-column>
-            </picker-view>
+    <view>
+        <dialog-modal ref="dateTimeDialogModal">
+            <view class="dtp-container">
+                <picker-view class="dtp-picker-box" indicator-style="height:80rpx;" :value="value" @change="onChange">
+                    <picker-view-column>
+                        <view class="dtp-picker-text" v-for="(item,index) in yearList" :key="index">
+                            {{format(item)}}年
+                        </view>
+                    </picker-view-column>
+                    <picker-view-column>
+                        <view class="dtp-picker-text" v-for="(item,index) in monthList" :key="index">
+                            {{format(item)}}月
+                        </view>
+                    </picker-view-column>
+                    <picker-view-column>
+                        <view class="dtp-picker-text" v-for="(item,index) in dayList" :key="index">
+                            {{format(item)}}日
+                        </view>
+                    </picker-view-column>
+                    <picker-view-column>
+                        <view class="dtp-picker-text" v-for="(item,index) in hourList" :key="index">
+                            {{format(item)}}时
+                        </view>
+                    </picker-view-column>
+                    <picker-view-column>
+                        <view class="dtp-picker-text" v-for="(item,index) in minList" :key="index">
+                            {{format(item)}}分
+                        </view>
+                    </picker-view-column>
+                </picker-view>
 
-            <view class="dtp-button" @click="onSure">确定</view>
-        </view>
+                <view class="dtp-button" @click="onSure">确定</view>
+            </view>
+        </dialog-modal>
     </view>
+
 </template>
 
 <script>
@@ -71,7 +70,6 @@
         },
         data() {
             return {
-                visible: false,
                 start: {},
                 end: {},
                 current: {},
@@ -88,13 +86,12 @@
         },
         methods: {
             show() {
-                this.visible = true
+                this.$refs.dateTimeDialogModal.show()
             },
-            onCancel() {
-                this.visible = false
+            hide() {
+                this.$refs.dateTimeDialogModal.hide()
             },
             onSure() {
-                this.visible = false
                 let year = this.yearList[this.value[0]]
                 let month = this.monthList[this.value[1]]
                 let day = this.dayList[this.value[2]]
@@ -116,6 +113,7 @@
                 } else {
                     this.$emit("change", date)
                 }
+                this.hide()
             },
             getMonthDay(year, month) {
                 if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
@@ -262,80 +260,7 @@
     .dtp-container {
         display: flex;
         flex-direction: column;
-        position: relative;
-    }
-
-    .dtp-mask {
-        position: fixed;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.6);
-        transition-property: opacity;
-        transition-duration: 0.3s;
-        opacity: 0;
-        z-index: 1000;
-    }
-
-    .dtp-mask-show {
-        opacity: 1
-    }
-
-    .dtp-box {
-        display: flex;
-        flex-direction: column;
         width: 100%;
-        position: fixed;
-        left: 0rpx;
-        bottom: 0rpx;
-        z-index: 1000;
-    }
-
-    .dtp-item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        height: 90rpx;
-        border-top: solid 4rpx #f5f5f5;
-        background-color: #fff;
-    }
-
-    .dtp-round {
-        border-top-left-radius: 40rpx;
-        border-top-right-radius: 40rpx;
-        align-items: center;
-        justify-content: center;
-        border-top: solid 4rpx #f5f5f5;
-        box-shadow: 0rpx 20rpx 30rpx 20rpx #aaa;
-    }
-
-    .hide {
-        transition: 0.3s all;
-        transform: translateY(100%);
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .show {
-        transition: 0.3s all;
-        transform: translateY(0%);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .down-arrow-black {
-        margin-left: 15rpx;
-        margin-bottom: 13rpx;
-        color: #333333;
-        width: 16rpx;
-        height: 16rpx;
-        position: relative;
-        border-bottom: 4rpx solid #333333;
-        border-right: 4rpx solid #333333;
-        transform: rotate(45deg);
-        border-radius: 4rpx;
     }
 
     .dtp-picker-box {
