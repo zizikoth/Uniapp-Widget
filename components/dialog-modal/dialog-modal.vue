@@ -139,6 +139,8 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        background-color: #FFF
+        background-color: #FFF;
+        padding-bottom: constant(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
     }
 </style>
