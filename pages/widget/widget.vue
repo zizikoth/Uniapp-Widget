@@ -49,6 +49,20 @@
             <item-input-view type="text" must title="年月日" titleWidth="150" arrow="bottom" :value="value.date"
                 @change="showDateDialog" />
             <dialog-date ref="dateDialog" @change="bindDate" />
+            <item-input-view type="customH" must title="开始结束" titleWidth="150">
+                <view class="custom">
+                    <view class="time-item" :class="{'time-value':value.startDate}" @click="showStartDateDialog">
+                        <text>{{value.startDate?value.startDate:"请选开始时间"}}</text>
+                        <arrow arrow="bottom" />
+                    </view>
+                    <view class="time-item" :class="{'time-value':value.endDate}" @click="showEndDateDialog">
+                        <text>{{value.endDate?value.endDate:"请选结束时间"}}</text>
+                        <arrow arrow="bottom" />
+                    </view>
+                </view>
+            </item-input-view>
+            <dialog-date ref="startDateDialog" @change="bindStartDate" />
+            <dialog-date ref="endDateDialog" @change="bindEndDate" />
             <item-input-view type="text" must title="金额" titleWidth="150" arrow="right" :value="value.number"
                 hint="请输入金额" @change="showNumberDialog" />
             <dialog-number ref="numberDialog" @change="bindNumber" />
@@ -164,6 +178,8 @@
                 value: {
                     dateTime: "",
                     date: "",
+                    startDate: "",
+                    endDate: "",
                     number: "",
                     picker: "",
                     either: "",
@@ -230,6 +246,18 @@
             },
             bindDate(e) {
                 this.value.date = e
+            },
+            showStartDateDialog() {
+                this.$refs.startDateDialog.show()
+            },
+            bindStartDate(e) {
+                this.value.startDate = e
+            },
+            showEndDateDialog() {
+                this.$refs.endDateDialog.show()
+            },
+            bindEndDate(e) {
+                this.value.endDate = e
             },
             showNumberDialog() {
                 this.$refs.numberDialog.show(123)
@@ -347,5 +375,30 @@
         padding: 30rpx;
         background-color: #FFF;
         border-radius: 16rpx;
+    }
+
+    .custom {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 160rpx;
+    }
+
+    .time-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        font-size: 28rpx;
+        color: #999;
+        height: 80rpx;
+        line-height: 80rpx;
+        text-align: end;
+    }
+
+    .time-value {
+        font-size: 28rpx;
+        color: #333;
     }
 </style>

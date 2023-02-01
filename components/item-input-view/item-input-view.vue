@@ -219,7 +219,6 @@
     .iiv-either-box {
         display: flex;
         flex-direction: row;
-        width: 100%;
         flex-wrap: wrap;
         width: 400rpx;
     }
