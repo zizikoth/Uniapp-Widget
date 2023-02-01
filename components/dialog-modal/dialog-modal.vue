@@ -66,7 +66,7 @@
         position: fixed;
         left: 0rpx;
         bottom: 0rpx;
-        z-index: 1000;
+        z-index: 999;
     }
 
     .dialog-hide {
@@ -88,23 +88,13 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        height: 90rpx;
-        border-top: solid 4rpx #f5f5f5;
-        border-bottom: solid 4rpx #f5f5f5;
+        height: 80rpx;
+        border-bottom: solid 2rpx #eee;
         background-color: #fff;
         border-top-left-radius: 20rpx;
         border-top-right-radius: 20rpx;
     }
 
-    .dialog-close {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        height: 90rpx;
-        align-items: center;
-        justify-content: center;
-        border-bottom: solid 4rpx #eee;
-    }
 
     .dialog-close-icon {
         position: relative;

@@ -31,42 +31,6 @@
             </view>
         </view>
 
-        <view v-if="type=='picker'||type=='date'" class="iiv-extra">
-            <picker :disabled="!enable" class="iiv-picker-box" :mode="type=='picker'?'selector':'date'" :fields="fields"
-                :range="range" :range-key="rangeKey" @change="onPickerChange">
-                <view class="iiv-picker-box">
-                    <text v-if="value">{{value}}</text>
-                    <text class="iiv-hint" v-else>{{hint?hint:'请选择'+title}}</text>
-                    <view class="iiv-arrow">
-                        <arrow arrow="bottom" color="#666666" />
-                    </view>
-                </view>
-            </picker>
-        </view>
-
-        <view v-if="type=='time'" class="iiv-extra">
-            <view class="iiv-time-box">
-                <picker :disabled="!enable" mode="date" :fields="fields" @change="onTimeChange1">
-                    <view class="iiv-picker-box">
-                        <text v-if="timeValue1">{{timeValue1}}</text>
-                        <text class="iiv-hint" v-else>{{timeHint1}}</text>
-                        <view class="iiv-arrow">
-                            <arrow arrow="bottom" color="#666666" />
-                        </view>
-                    </view>
-                </picker>
-                <picker :disabled="!enable" mode="date" :fields="fields" @change="onTimeChange2">
-                    <view class="iiv-picker-box" style="margin-top: 20rpx;">
-                        <text v-if="timeValue2">{{timeValue2}}</text>
-                        <text class="iiv-hint" v-else>{{timeHint2}}</text>
-                        <view class="iiv-arrow">
-                            <arrow arrow="bottom" color="#666666" />
-                        </view>
-                    </view>
-                </picker>
-            </view>
-        </view>
-
         <view v-if="type=='input'" class="iiv-extra">
             <input v-if="enable" class="iiv-input-text" :enableNative="'{{false}}'" :value="value"
                 :placeholder="hint==''?'请输入'+title:hint" placeholder-class="iiv-input-hint" :maxlength="maxLength"
@@ -95,9 +59,6 @@
      *      @value customV      开放下边空间 <slot/>
      *      @value text         文本类型
      *      @value either       多选一
-     *      @value picker       选择弹窗
-     *      @value date         日期选择
-     *      @value time         开始时间+结束时间
      *      @value input        单行输入
      *      @value textarea     多行输入
      *      @value image        九宫格图片选择
@@ -106,23 +67,15 @@
      * @property {String}   must        必填标识                 默认：false
      * @property {String}   title       标题                    默认：""
      * @property {String}   titleWidth  标题宽度，超过200后会形变  默认：120
-     * @property {String}   arrow       text模式的箭头方向                        默认：""
+     * @property {String}   arrow       text模式的箭头方向        默认：""
      *      @value left         向左
      *      @value top          向上
      *      @value right        向右
      *      @value bottom       向下
-     * @property {String}   value       text,picker,date,input,textarea模式传入的文字，either模式传入选中的id，image模式传入图片列表    默认：null
-     * @property {String}   hint        text,picker,date,input,textarea模式的提示文字             默认：请选择/请输入+标题
-     * @property {String}   timeHint1   time模式的提示开始时间文字  默认：请选择开始时间
-     * @property {String}   timeHint2   time模式的提示结束时间文字  默认：请选择结束时间
-     * @property {String}   timeValue1  time模式的开始时间文字      默认：null
-     * @property {String}   timeValue2  time模式的结束时间文字      默认：null
-     * @property {String}   fields      date,time模式的时间颗粒度   默认：day
-     *      @value year         年
-     *      @value month        月
-     *      @value day          日
-     * @property {String}   range       either，picker模式的数据源    默认：[]
-     * @property {String}   rangeKey    either，picker模式的显示key   默认：""
+     * @property {String}   value       text,input,textarea模式传入的文字，either模式传入选中的id，image模式传入图片列表    默认：null
+     * @property {String}   hint        text,input,textarea模式的提示文字             默认：请选择/请输入+标题
+     * @property {String}   range       either模式的数据源             默认：[]     
+     * @property {String}   rangeKey    either模式的显示文字           默认：''
      * @property {String}   maxLength   input,textarea模式文字长度    默认：200
      * @property {String}   imageHeight image模式下图片高度            默认：200
      */
@@ -164,26 +117,6 @@
                 type: String,
                 default: ""
             },
-            timeValue1: {
-                type: String,
-                default: null
-            },
-            timeValue2: {
-                type: String,
-                default: null
-            },
-            timeHint1: {
-                type: String,
-                default: "请选择开始时间"
-            },
-            timeHint2: {
-                type: String,
-                default: "请选择结束时间"
-            },
-            fields: {
-                type: String,
-                default: "day"
-            },
             range: {
                 type: Array,
                 default: () => []
@@ -217,28 +150,6 @@
             },
             onEitherClick(item) {
                 this.$emit('change', item)
-            },
-            onPickerChange(e) {
-                if (this.type == 'picker') {
-                    this.$emit('change', this.range[e.detail.value])
-                } else if (this.type == 'date') {
-                    let temp = e.detail.value.replace(RegExp("/", "gm"), "-")
-                    this.$emit('change', temp)
-                }
-            },
-            onTimeChange1(e) {
-                this.startTime = e.detail.value.replace(RegExp("/", "gm"), "-")
-                this.$emit('change', {
-                    startTime: this.startTime,
-                    endTime: this.endTime
-                })
-            },
-            onTimeChange2(e) {
-                this.endTime = e.detail.value.replace(RegExp("/", "gm"), "-")
-                this.$emit('change', {
-                    startTime: this.startTime,
-                    endTime: this.endTime
-                })
             },
             onInputChange(e) {
                 this.$emit('change', e.detail.value)
@@ -350,20 +261,6 @@
 
     .iiv-either-text-checked {
         color: #333;
-    }
-
-    .iiv-picker-box {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        min-width: 400rpx;
-        justify-content: flex-end;
-    }
-
-    .iiv-time-box {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
     }
 
     .iiv-input-text {

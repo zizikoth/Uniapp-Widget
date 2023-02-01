@@ -43,19 +43,24 @@
         </view>
 
         <view class="input-item-view">
-            <item-input-view type="date" title="年月日" hint="请选择日期" />
-            <item-input-view type="text" title="年月日时分" must titleWidth="150" hint="请选择时间" :value="dateTime"
-                @change="showDTP" />
-            <date-time-dialog ref="dtp" @change="bindDateTime" />
-            <item-input-view type="text" title="数字弹窗" subTitle="最高100分" must hint="请输入数字" :value="number"
-                @change="showNK" />
-            <number-keyboard-dialog ref="nk" @change="bindNumber" />
-            <item-input-view type="picker" title="picker" hint="请选择内容" :range="grid" rangeKey="name" />
-            <item-input-view type="input" title="单行文本" hint="请输入内容" />
-            <item-input-view type="textarea" title="多行文本" titleWidth="200" hint="请输入内容" />
-            <item-input-view type="either" title="单选" :range="grid" rangeKey="name" :value="0"
-                @change="toast($event)" />
-            <item-input-view type="image" title="图片" />
+            <item-input-view type="text" must title="年月日时分" titleWidth="150" arrow="bottom" :value="value.dateTime"
+                @change="showDateTimeDialog" />
+            <dialog-date-time ref="dateTimeDialog" @change="bindDateTime" />
+            <item-input-view type="text" must title="年月日" titleWidth="150" arrow="bottom" :value="value.date"
+                @change="showDateDialog" />
+            <dialog-date ref="dateDialog" @change="bindDate" />
+            <item-input-view type="text" must title="金额" titleWidth="150" arrow="right" :value="value.number"
+                hint="请输入金额" @change="showNumberDialog" />
+            <dialog-number ref="numberDialog" @change="bindNumber" />
+            <item-input-view type="text" must title="单项弹窗" titleWidth="150" arrow="bottom" :value="value.picker"
+                @change="showPickerDialog" />
+            <dialog-picker ref="pickerDialog" :range="banners" rangeKey="title" @change="bindPicker" />
+            <item-input-view type="either" must title="单项选择" :range="grid" rangeKey="name" :value="value.either"
+                @change="bindEither" />
+            <item-input-view type="input" must title="单行输入" :value="value.input" @change="bindInput" />
+            <item-input-view type="textarea" must title="多行输入" :value="value.textarea" @change="bindTextarea" />
+            <item-input-view type="image" must title="图片选择" :value="value.images" @change="bindImage" />
+
         </view>
 
         <view class="input-item">
@@ -145,7 +150,7 @@
                     source: '环球日报'
                 }, {
                     url: 'https://pic2.zhimg.com/80/v2-d7bee94aabb2f2999f1d60523b724e63_720w.jpg',
-                    title: '轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图2',
+                    title: '轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图轮播图2',
                     source: '环球日报'
                 }, {
                     url: 'https://pic1.zhimg.com/80/v2-1ed0f37177bd9735ab09dcdfde99c8f4_720w.jpg',
@@ -156,6 +161,16 @@
                     title: '轮播图4',
                     source: '环球日报'
                 }],
+                value: {
+                    dateTime: "",
+                    date: "",
+                    number: "",
+                    picker: "",
+                    either: "",
+                    input: "",
+                    textarea: "",
+                    images: []
+                },
                 newsList: [{
                     cover: 'https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg',
                     title: '这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题这个是标题',
@@ -173,48 +188,6 @@
                     cover: 'https://pic1.zhimg.com/80/v2-53d98d025e653bcdd18516c66b4e7ded_720w.jpg',
                     content: '这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容这个是内容',
                     time: '2020-09-09 19:09:09'
-                }],
-                treeData: [{
-                    id: 1,
-                    isOpen: false,
-                    title: '第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级第一层级-1',
-                    children: [{
-                        id: 2,
-                        isOpen: false,
-                        title: '第二层级-2-1',
-                        children: [{
-                            id: 3,
-                            isOpen: false,
-                            title: '第三层级-3-1',
-                            children: [{
-                                id: 4,
-                                isOpen: false,
-                                title: '第四层级-4-1'
-                            }]
-                        }]
-                    }, {
-                        id: 5,
-                        isOpen: false,
-                        title: '第二层级-2-2',
-                        children: [{
-                            id: 6,
-                            isOpen: false,
-                            title: '第三层级-3-1'
-                        }]
-                    }]
-                }, {
-                    id: 7,
-                    isOpen: false,
-                    title: '第一层级-2',
-                    children: [{
-                        id: 8,
-                        isOpen: false,
-                        title: '第二层级-2-1'
-                    }]
-                }, {
-                    id: 9,
-                    isOpen: false,
-                    title: '第一层级-3'
                 }],
                 mark: [],
                 progress: 0,
@@ -246,32 +219,43 @@
                     this.show = false
                 }, 1000)
             },
-            showNK() {
-                this.$refs.nk.show(this.number)
-            },
-            showDTP() {
-                this.$refs.dtp.show()
-            },
-            bindNumber(e) {
-                if (e <= 100) {
-                    this.number = e
-                } else {
-                    this.toast("最高100分")
-                    this.$refs.nk.show(this.number)
-                }
+            showDateTimeDialog() {
+                this.$refs.dateTimeDialog.show()
             },
             bindDateTime(e) {
-                this.dateTime = e
+                this.value.dateTime = e
             },
-            changeImages(e) {
-                this.toast(e.url)
-                this.banners.push(this.banners[0])
+            showDateDialog() {
+                this.$refs.dateDialog.show()
             },
-            onTreeChange(list) {
-                console.log(list)
-                let msg = list.map(item => item.title).join(',')
-                utils.toast(msg)
+            bindDate(e) {
+                this.value.date = e
             },
+            showNumberDialog() {
+                this.$refs.numberDialog.show(123)
+            },
+            bindNumber(e) {
+                this.value.number = e
+            },
+            showPickerDialog() {
+                this.$refs.pickerDialog.show()
+            },
+            bindPicker(e) {
+                this.value.picker = e.title
+            },
+            bindEither(e) {
+                this.value.either = e.id
+            },
+            bindInput(e) {
+                this.value.input = e
+            },
+            bindTextarea(e) {
+                this.value.textarea = e
+            },
+            bindImage(e) {
+                this.value.images = e
+            },
+
             onChangeDate(date) {
                 console.log("日期切换", date)
             },

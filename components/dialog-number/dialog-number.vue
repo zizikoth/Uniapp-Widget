@@ -1,6 +1,6 @@
 <template>
     <view>
-        <dialog-modal ref="numberKeyboardDialogModal">
+        <dialog-modal ref="numberDialogModal">
             <view class="nk-container">
                 <view class="nk-item">
                     <view class="nk-value">{{value}}</view>
@@ -31,7 +31,7 @@
                     </view>
                 </view>
 
-                <view class="nk-button" @click="hide">确定</view>
+                <view class="nk-button" @click="onSure">确定</view>
             </view>
 
         </dialog-modal>
@@ -68,6 +68,15 @@
             };
         },
         methods: {
+            show(value) {
+                if (value != null && value != undefined) {
+                    this.value = value.toString()
+                }
+                this.$refs.numberDialogModal.show()
+            },
+            hide() {
+                this.$refs.numberDialogModal.hide()
+            },
             add(input) {
                 if (this.value.length < this.maxLength && input != "") {
                     if (this.value.length == 0 && input == ".") {
@@ -84,25 +93,17 @@
                     } else {
                         this.value = this.value + input
                     }
-                    this.$emit("change", this.value)
                 }
             },
             reduce() {
                 if (this.value.length > 0) {
                     this.value = this.value.substring(0, this.value.length - 1)
-                    this.$emit("change", this.value)
                 }
             },
-            hide() {
-                this.$emit("hide")
-                this.$refs.numberKeyboardDialogModal.hide()
-            },
-            show(value) {
-                if (value != null && value != undefined) {
-                    this.value = value.toString()
-                }
-                this.$refs.numberKeyboardDialogModal.show()
-            },
+            onSure() {
+                this.$emit("change", this.value)
+                this.hide()
+            }
         }
     }
 </script>

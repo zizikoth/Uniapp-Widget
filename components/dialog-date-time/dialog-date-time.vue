@@ -1,6 +1,13 @@
 <template>
     <view>
         <dialog-modal ref="dateTimeDialogModal">
+            <view class="dtp-tip-box" v-if="startTime||endTime">
+                <text v-if="startTime&&!endTime">开始时间：</text>
+                <text v-if="startTime">{{startTime}}</text>
+                <text v-if="startTime&&endTime" class="dtp-tip-to">至</text>
+                <text v-if="!startTime&&endTime">结束时间：</text>
+                <text v-if="endTime">{{endTime}}</text>
+            </view>
             <view class="dtp-container">
                 <picker-view class="dtp-picker-box" indicator-style="height:80rpx;" :value="value" @change="onChange">
                     <picker-view-column>
@@ -112,8 +119,8 @@
                     })
                 } else {
                     this.$emit("change", date)
+                    this.hide()
                 }
-                this.hide()
             },
             getMonthDay(year, month) {
                 if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
@@ -154,15 +161,22 @@
                     }
                 }
             },
-            emptyClick() {
-                console.log("点击背景")
-            },
             initTime() {
                 // 首先判断开始时间和结束时间的逻辑是否正确
-                let startTimestamp = this.startTime == null ? 0 : new Date(this.startTime).getTime()
-                let endTimestamp = this.endTime == null ? 0 : new Date(this.endTime).getTime()
-                if (startTimestamp != 0 && endTimestamp != 0 && startTimestamp <= endTimestamp) {
-                    // 处理传入的开始和结束时间
+                let startTimestamp = this.startTime ? new Date(this.startTime).getTime() : 0
+                let endTimestamp = this.endTime ? new Date(this.endTime).getTime() : 0
+                let curTimestamp = this.currentTime ? new Date(this.currentTime).getTime() : new Date().getTime()
+                // 开始时间
+                if (startTimestamp == 0) {
+                    this.start = {
+                        year: 1900,
+                        month: 1,
+                        day: 1,
+                        hour: 0,
+                        min: 0,
+                        date: '1900-01-01 00:00'
+                    }
+                } else {
                     let date = new Date(this.startTime)
                     this.start = {
                         year: date.getFullYear(),
@@ -172,7 +186,20 @@
                         min: date.getMinutes(),
                         date: `${date.getFullYear()}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} ${this.format(date.getHours())}:${this.format(date.getMinutes())}`
                     }
-                    date = new Date(this.endTime)
+                }
+                // 结束时间
+                if (endTimestamp == 0 || endTimestamp < startTimestamp) {
+                    let date = new Date()
+                    this.end = {
+                        year: date.getFullYear() + 100,
+                        month: 1,
+                        day: 1,
+                        hour: 0,
+                        min: 0,
+                        date: `${date.getFullYear()+100}-01-01 00:00`
+                    }
+                } else {
+                    let date = new Date(this.endTime)
                     this.end = {
                         year: date.getFullYear(),
                         month: date.getMonth() + 1,
@@ -181,32 +208,9 @@
                         min: date.getMinutes(),
                         date: `${date.getFullYear()}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} ${this.format(date.getHours())}:${this.format(date.getMinutes())}`
                     }
-                } else {
-                    // 自行处理开始和结束时间
-                    let date = new Date()
-                    this.start = {
-                        year: date.getFullYear() - 100,
-                        month: date.getMonth() + 1,
-                        day: date.getDate(),
-                        hour: 0,
-                        min: 0,
-                        date: `${date.getFullYear()-100}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} 00:00`
-                    }
-                    this.end = {
-                        year: date.getFullYear() + 100,
-                        month: date.getMonth() + 1,
-                        day: date.getDate(),
-                        hour: 0,
-                        min: 0,
-                        date: `${date.getFullYear()+100}-${this.format(date.getMonth()+1)}-${this.format(date.getDate())} 00:00`
-                    }
                 }
-                // 判断当前时间
-                let curTimestamp = this.currentTime == null ? new Date().getTime() :
-                    new Date(this.currentTime).getTime()
                 startTimestamp = new Date(this.start.date).getTime()
                 endTimestamp = new Date(this.end.date).getTime()
-
                 if (curTimestamp < startTimestamp) {
                     this.current = this.start
                 } else if (curTimestamp > endTimestamp) {
@@ -261,6 +265,26 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+    }
+
+    .dtp-tip-box {
+        display: flex;
+        flex-direction: row;
+        white-space: nowrap;
+        width: 100%;
+        height: 78rpx;
+        line-height: 78rpx;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        font-size: 26rpx;
+        color: #333;
+        border-bottom: solid 2rpx #eee;
+    }
+
+    .dtp-tip-to {
+        margin-left: 10rpx;
+        margin-right: 10rpx;
     }
 
     .dtp-picker-box {
