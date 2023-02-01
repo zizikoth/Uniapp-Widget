@@ -43,6 +43,9 @@
         </view>
 
         <view class="input-item-view">
+            <item-input-view type="text" must title="省市区" arrow="bottom" :value="value.address"
+                @change="showAddressDialog" />
+            <dialog-address ref="addressDialog" @change="bindAddress" />
             <item-input-view type="text" must title="年月日时分" titleWidth="150" arrow="bottom" :value="value.dateTime"
                 @change="showDateTimeDialog" />
             <dialog-date-time ref="dateTimeDialog" @change="bindDateTime" />
@@ -74,7 +77,6 @@
             <item-input-view type="input" must title="单行输入" :value="value.input" @change="bindInput" />
             <item-input-view type="textarea" must title="多行输入" :value="value.textarea" @change="bindTextarea" />
             <item-input-view type="image" must title="图片选择" :value="value.images" @change="bindImage" />
-
         </view>
 
         <view class="input-item">
@@ -176,6 +178,7 @@
                     source: '环球日报'
                 }],
                 value: {
+                    address: "",
                     dateTime: "",
                     date: "",
                     startDate: "",
@@ -234,6 +237,12 @@
                 setTimeout(() => {
                     this.show = false
                 }, 1000)
+            },
+            showAddressDialog() {
+                this.$refs.addressDialog.show()
+            },
+            bindAddress(e) {
+                this.value.address = `${e.province}-${e.city}-${e.area}`
             },
             showDateTimeDialog() {
                 this.$refs.dateTimeDialog.show()
