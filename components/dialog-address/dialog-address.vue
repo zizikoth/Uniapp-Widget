@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    // 数据源来自于 https://github.com/modood/Administrative-divisions-of-China
     import address from '@/utils/address.js'
     export default {
         name: "dialog-address",
