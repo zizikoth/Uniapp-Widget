@@ -62,6 +62,7 @@
     .arrow {
         border-top: solid;
         border-right: solid;
+        border-radius: 2rpx;
     }
 
     .arrow-left {

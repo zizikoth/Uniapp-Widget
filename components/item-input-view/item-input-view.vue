@@ -14,7 +14,7 @@
         </view>
 
         <view v-if="type=='text'" class="iiv-extra" @click="onTextClick">
-            <text v-if="value">{{value}}</text>
+            <text v-if="value" class="iiv-value">{{value}}</text>
             <text class="iiv-hint" v-else>{{hint?hint:'请选择'+title}}</text>
             <view class="iiv-arrow">
                 <arrow :arrow="arrow" color="#666666" />
@@ -207,6 +207,11 @@
         justify-content: flex-end;
     }
 
+    .iiv-value {
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+    }
+
     .iiv-hint {
         display: flex;
         color: #999;
@@ -221,6 +226,8 @@
         flex-direction: row;
         flex-wrap: wrap;
         width: 400rpx;
+        padding-top: 10rpx;
+        padding-bottom: 10rpx;
     }
 
     .iiv-either-item {
@@ -229,8 +236,8 @@
         width: 200rpx;
         align-items: center;
         justify-content: flex-end;
-        margin-top: 10rpx;
-        margin-bottom: 10rpx;
+        padding-top: 10rpx;
+        padding-bottom: 10rpx;
     }
 
     .iiv-either-check {

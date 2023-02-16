@@ -1,7 +1,7 @@
 <template>
     <view class="dialog-modal" @touchmove.stop.prevent="()=>false">
-        <view class="dailog-mask" :class="{'dailog-mask-show':visible}" v-if="visible" @click="{}" />
-        <view class="dialog-box dialog-hide" :class="{'dialog-show':visible}">
+        <view class="dailog-mask" :class="{'dailog-mask-show':visible}" @click="{}" />
+        <view class="dialog-box" :class="{'dialog-box-show':visible}">
             <view class="dialog-close" @click="hide()">
                 <view class="dialog-close-icon" />
             </view>
@@ -49,14 +49,14 @@
         left: 0;
         right: 0;
         background-color: rgba(0, 0, 0, 0.6);
-        transition-property: opacity;
-        transition-duration: 0.3s;
+        transition: 0.3s all;
         opacity: 0;
-        z-index: 999;
+        z-index: -1;
     }
 
     .dailog-mask-show {
-        opacity: 1
+        opacity: 1;
+        z-index: 900;
     }
 
     .dialog-box {
@@ -66,20 +66,18 @@
         position: fixed;
         left: 0rpx;
         bottom: 0rpx;
-        z-index: 999;
-    }
-
-    .dialog-hide {
         transition: 0.3s all;
         transform: translateY(100%);
         opacity: 0;
+        z-index: -1;
         visibility: hidden;
     }
 
-    .dialog-show {
+    .dialog-box-show {
         transition: 0.3s all;
         transform: translateY(0%);
         opacity: 1;
+        z-index: 900;
         visibility: visible;
     }
 

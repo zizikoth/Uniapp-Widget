@@ -1,7 +1,7 @@
 ```
 1、z-index
-dialog    z-index:1000
-标题      z-index:900
+标题      z-index:999
+dialog   z-index:900
 sticky   z-index:100
 角标		 z-index:10
 

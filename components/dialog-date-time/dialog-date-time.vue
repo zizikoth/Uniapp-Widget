@@ -308,7 +308,7 @@
         line-height: 90rpx;
         text-align: center;
         font-size: 30rpx;
-        color: #000;
+        color: #0076f6;
         border-top: solid 2rpx #eee;
         background-color: #fff;
     }
