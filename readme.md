@@ -1,8 +1,9 @@
 ```
 1、z-index
-标题      z-index:999
-dialog   z-index:900
-sticky   z-index:100
+page-holder z-index:999
+标题      z-index:40
+dialog   z-index:30
+sticky   z-index:20
 角标		 z-index:10
 
 2、弹窗的最外层添加方法防止底下的页面滑动

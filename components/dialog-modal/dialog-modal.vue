@@ -56,7 +56,7 @@
 
     .dailog-mask-show {
         opacity: 1;
-        z-index: 900;
+        z-index: 30;
     }
 
     .dialog-box {
@@ -68,17 +68,13 @@
         bottom: 0rpx;
         transition: 0.3s all;
         transform: translateY(100%);
-        opacity: 0;
         z-index: -1;
-        visibility: hidden;
     }
 
     .dialog-box-show {
         transition: 0.3s all;
         transform: translateY(0%);
-        opacity: 1;
-        z-index: 900;
-        visibility: visible;
+        z-index: 30;
     }
 
     .dialog-close {
